@@ -1,10 +1,16 @@
-node_modules
-out
-src/images
+#
+# Windows 95 ignore list
+#
+
+node_modules/
+out/
+src/images/
+images/
+images_new/
+dist/
+.yarn/
+
 .DS_Store
-images
-images_new
-dist
-!.github/images
+
 *.code-workspace
 *.pfx
