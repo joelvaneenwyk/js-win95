@@ -35,7 +35,7 @@ jobs:
       - name: Get cache directory path
         id: node-cache-dir-path
         run: |
-          echo "cache-folder=$(eval "${CACHE_NPM:-npm config get cache})" >> "$GITHUB_OUTPUT"
+          echo "cache-folder=$(eval "${CACHE_NPM:-npm config get cache}")" >> "$GITHUB_OUTPUT"
 
       - uses: actions/cache@v4
         id: node-cache # use this to check for `cache-hit` (`steps.node-cache.outputs.cache-hit != 'true'`)
@@ -89,7 +89,7 @@ jobs:
       - name: Get cache directory path
         id: node-cache-dir-path
         run: |
-          echo "cache-folder=$(eval "${CACHE_NPM:-npm config get cache}" >> "$GITHUB_OUTPUT"
+          echo "cache-folder=$(eval "${CACHE_NPM:-npm config get cache}")" >> "$GITHUB_OUTPUT"
 
       - uses: actions/cache@v4
         id: node-cache # use this to check for `cache-hit` (`steps.node-cache.outputs.cache-hit != 'true'`)
