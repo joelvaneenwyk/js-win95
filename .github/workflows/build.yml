@@ -129,8 +129,12 @@ jobs:
       - name: Install packages
         run: ${{ env.NPM }} install
 
-      - name: Make
-        run: ${{ env.NPM }} run make --arch=${{ matrix.arch }}
+      - name: Forge Package
+        run: ${{ env.NPM }} run package -- --arch=${{ matrix.arch }}
+
+      - name: Forge Make
+        run: ${{ env.NPM }} run make -- --arch=${{ matrix.arch }}
+        continue-on-error: true
         env:
           APPLE_ID: ${{ secrets.APPLE_ID || '' }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD || '' }}
