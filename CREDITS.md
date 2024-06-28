@@ -2,11 +2,11 @@
 
 This app was made possible by three major engineering efforts:
 
- * [v86 by Fabian Hemmer](https://github.com/copy/v86)
- * [Electron by the Electron Maintainers](https://electronjs.org)
- * Windows 95 by Microsoft
+- [v86 by Fabian Hemmer](https://github.com/copy/v86)
+- [Electron by the Electron Maintainers](https://electronjs.org)
+- Windows 95 by Microsoft
 
-# v86 License and Copyright Notice
+## v86 License and Copyright Notice
 
 Copyright (c) 2012-2018, Fabian Hemmer
 All rights reserved.
@@ -35,7 +35,7 @@ The views and conclusions contained in the software and documentation are those
 of the authors and should not be interpreted as representing official policies,
 either expressed or implied, of the FreeBSD Project.
 
-# Electron License and Copyright Notice
+## Electron License and Copyright Notice
 
 Copyright (c) 2013-2018 GitHub Inc.
 

@@ -4,6 +4,8 @@ This is Windows 95, running in an [Electron](https://electronjs.org/) app. Yes, 
 
 ## Downloads
 
+<!-- markdownlint-disable MD033 MD045 -->
+
 <table class="is-fullwidth">
 </thead>
 <tbody>
@@ -96,12 +98,15 @@ This is Windows 95, running in an [Electron](https://electronjs.org/) app. Yes, 
 ![Screenshot](https://user-images.githubusercontent.com/1426799/44532591-4ceb3680-a6a8-11e8-8c2c-bc29f3bfdef7.png)
 
 ## Does it work?
+
 Yes! Quite well, actually - on macOS, Windows, and Linux. Bear in mind that this is written entirely in JavaScript, so please adjust your expectations.
 
 ## Should this have been a native app?
+
 Absolutely.
 
 ## Does it run Doom (or my other favorite game)?
+
 You'll likely be better off with an actual virtualization app, but the short answer is yes. [Thanks to
 @DisplacedGamers](https://youtu.be/xDXqmdFxofM) I can recommend that you switch to a resolution of
 640x480 @ 256 colors before starting DOS games - just like in the good ol' days.
@@ -119,7 +124,7 @@ release, which does include the disk image. You can find that button in the
 
 Unpack the `images` folder into the `src` folder, creating this layout:
 
-```
+```bash
 - /images/windows95.img
 - /images/default-state.bin
 - /assets/...
@@ -133,11 +138,11 @@ If you want to tinker with the image or make a new one, check out the [QEMU docs
 
 ## Other Questions
 
- * [MS-DOS seems to brick the screen](./HELP.md#ms-dos-seems-to-brick-the-screen)
- * [Windows 95 is stuck in a bad state](./HELP.md#windows-95-is-stuck-in-a-bad-state)
- * [I want to install additional apps or games](./HELP.md#i-want-to-install-additional-apps-or-games)
- * [Running in Docker](./docs/docker-instructions.md)
- * [Running in an online VM with Kubernetes and Gitpod](./docs/docker-kubernetes-gitpod.md)
+* [MS-DOS seems to brick the screen](./HELP.md#ms-dos-seems-to-brick-the-screen)
+* [Windows 95 is stuck in a bad state](./HELP.md#windows-95-is-stuck-in-a-bad-state)
+* [I want to install additional apps or games](./HELP.md#i-want-to-install-additional-apps-or-games)
+* [Running in Docker](./docs/docker-instructions.md)
+* [Running in an online VM with Kubernetes and Gitpod](./docs/docker-kubernetes-gitpod.md)
 
 ## License
 
