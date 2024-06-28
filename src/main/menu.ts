@@ -5,10 +5,10 @@ import { IPC_COMMANDS } from "../constants";
 import { isDevMode } from "../utils/devmode";
 
 const LINKS = {
-  homepage: "https://www.twitter.com/felixrieseberg",
-  repo: "https://github.com/felixrieseberg/windows95",
-  credits: "https://github.com/felixrieseberg/windows95/blob/master/CREDITS.md",
-  help: "https://github.com/felixrieseberg/windows95/blob/master/HELP.md",
+  homepage: "https://www.twitter.com/joelvaneenwyk",
+  repo: "https://github.com/joelvaneenwyk/windows95",
+  credits: "https://github.com/joelvaneenwyk/windows95/blob/develop/CREDITS.md",
+  help: "https://github.com/joelvaneenwyk/windows95/blob/develop/docs/help.md",
 };
 
 export async function setupMenu() {

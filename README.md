@@ -1,6 +1,6 @@
-# windows95
+# `windows95`
 
-This is Windows 95, running in an [Electron](https://electronjs.org/) app. Yes, it's the full thing. I'm sorry.
+This is Windows 95, running in an [Electron](https://electronjs.org/) app. Yes, it's the full thing.
 
 ## Downloads
 
@@ -113,7 +113,7 @@ You'll likely be better off with an actual virtualization app, but the short ans
 
 ## Credits
 
-99% of the work was done over at [v86](https://github.com/copy/v86/) by Copy aka Fabian Hemmer and his contributors.
+99% of the work was done over at [v86](https://github.com/copy/v86/) by [Copy](https://github.com/copy) aka [Fabian Hemmer](https://copy.sh/) and his contributors.
 
 ## Contributing
 
@@ -138,9 +138,9 @@ If you want to tinker with the image or make a new one, check out the [QEMU docs
 
 ## Other Questions
 
-* [MS-DOS seems to brick the screen](./HELP.md#ms-dos-seems-to-brick-the-screen)
-* [Windows 95 is stuck in a bad state](./HELP.md#windows-95-is-stuck-in-a-bad-state)
-* [I want to install additional apps or games](./HELP.md#i-want-to-install-additional-apps-or-games)
+* [MS-DOS seems to brick the screen](./docs/help.md#ms-dos-seems-to-brick-the-screen)
+* [Windows 95 is stuck in a bad state](./docs/help.md#windows-95-is-stuck-in-a-bad-state)
+* [I want to install additional apps or games](./docs/help.md#i-want-to-install-additional-apps-or-games)
 * [Running in Docker](./docs/docker-instructions.md)
 * [Running in an online VM with Kubernetes and Gitpod](./docs/docker-kubernetes-gitpod.md)
 

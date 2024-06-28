@@ -9,8 +9,10 @@ images/
 images_new/
 dist/
 .yarn/
+.vs/
 
 .DS_Store
 
 *.code-workspace
 *.pfx
+*.DotSettings.user

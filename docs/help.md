@@ -1,6 +1,7 @@
 # Help & Commonly Asked Questions
 
 ## MS-DOS seems to mess up the screen
+
 Hit `Alt + Enter` to make the command screen "Full Screen" (as far as Windows 95 is
 concerned). This should restore the display from the garbled mess you see and allow
 you to access the Command Prompt. Press Alt-Enter again to leave Full Screen and go
@@ -27,9 +28,10 @@ On Linux, search the Internet for instructions on how to mount an `img` disk
 image on your distribution. It's likely that you'll be able to run `mount`
 with the image as input.
 
-[osfmount]: https://www.osforensics.com/tools/mount-disk-images.html
-
 ## What's the FrontPage Username and Password?
+
 Username: windows95
 
 Password: password
+
+[osfmount]: https://www.osforensics.com/tools/mount-disk-images.html
