@@ -2,6 +2,8 @@ const path = require('path');
 const fs = require('fs');
 const package = require('./package.json');
 
+require('dotenv').config()
+
 if (process.env['WINDOWS_CODESIGN_FILE']) {
   const certPath = path.join(__dirname, 'win-certificate.pfx');
   const certExists = fs.existsSync(certPath);
@@ -13,16 +15,19 @@ if (process.env['WINDOWS_CODESIGN_FILE']) {
 
 module.exports = {
   hooks: {
-    generateAssets: require('./tools/generateAssets'),
+    generateAssets: require('./tools/generate-assets'),
   },
   packagerConfig: {
-    asar: false,
+    asar: true,
     icon: path.resolve(__dirname, 'assets', 'icon'),
-    appBundleId: 'com.felixrieseberg.windows95',
+    appBundleId: 'com.joelvaneenwyk.windows95',
     appCategoryType: 'public.app-category.developer-tools',
     win32metadata: {
       CompanyName: 'Felix Rieseberg',
       OriginalFilename: 'windows95'
+    },
+    linux: {
+        target: 'zip'
     },
     osxSign: {
       identity: 'Developer ID Application: Felix Rieseberg (LT94ZKYDCJ)',
@@ -53,7 +58,12 @@ module.exports = {
       /issue_template\.md/,
     ]
   },
+  rebuildConfig: {},
   makers: [
+    {
+      name: '@electron-forge/maker-zip',
+      platforms: ['darwin', 'win32', 'linux']
+    },
     {
       name: '@electron-forge/maker-squirrel',
       platforms: ['win32'],
@@ -61,10 +71,11 @@ module.exports = {
         return {
           name: 'windows95',
           authors: 'Felix Rieseberg',
+          description: 'The Windows 95 app that runs on macOS, Windows, and Linux.',
           exe: 'windows95.exe',
           noMsi: true,
           remoteReleases: '',
-          iconUrl: 'https://raw.githubusercontent.com/felixrieseberg/windows95/master/assets/icon.ico',
+          iconUrl: 'https://raw.githubusercontent.com/joelvaneenwyk/windows95/develop/assets/icon.ico',
           loadingGif: './assets/boot.gif',
           setupExe: `windows95-${package.version}-setup-${arch}.exe`,
           setupIcon: path.resolve(__dirname, 'assets', 'icon.ico'),
@@ -74,16 +85,16 @@ module.exports = {
       }
     },
     {
-      name: '@electron-forge/maker-zip',
-      platforms: ['darwin', 'win32']
+      name: '@electron-forge/maker-deb'
     },
     {
-      name: '@electron-forge/maker-deb',
-      platforms: ['linux']
-    },
-    {
-      name: '@electron-forge/maker-rpm',
-      platforms: ['linux']
+      name: '@electron-forge/maker-rpm'
     }
-  ]
+  ],
+  plugins: [
+    {
+      name: '@electron-forge/plugin-auto-unpack-natives',
+      config: {},
+    },
+  ],
 };
