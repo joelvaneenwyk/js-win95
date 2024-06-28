@@ -2,19 +2,23 @@
   "name": "windows95",
   "productName": "windows95",
   "version": "3.1.2",
-  "description": "Windows 95 running in an Electron application.",
   "main": "./dist/src/main/main.js",
-  "author": "Felix Rieseberg, felix@felixrieseberg.com",
+  "authors": "Felix Rieseberg, felix@felixrieseberg.com",
+  "description": "Windows 95 running in an Electron application.",
   "license": "MIT",
   "packageManager": "npm@10.8.1+sha512.0e9d42e92bd2318408ed81eaff2da5f78baf23ee7d12a6eed44a6e2901d0f29d7ab715d1b918ade601f72e769a824d9a5c322383f22bbbda5dd396e79de2a077",
+  "workspaces": [],
   "engines": {
     "node": "^20 || ^22"
   },
   "scripts": {
+    "env:pull": "npx --yes dotenv-vault@1.24.0 pull --yes",
+    "env:push": "npx --yes dotenv-vault@1.24.0 push --yes",
     "start": "rimraf ./dist && electron-forge start",
-    "build": "npm run make",
+    "build": "DEBUG=electron-windows-installer*,electron-forge* npm run make",
     "package": "electron-forge package",
     "make": "electron-forge make",
+    "test": "npm run build && electron-forge test",
     "publish": "electron-forge publish",
     "lint": "prettier --write src/**/*.{ts,tsx} && npm run check-links",
     "less": "node ./tools/lessc.js",
@@ -26,10 +30,8 @@
   },
   "dependencies": {
     "electron": "31.1.0",
-    "electron-squirrel-startup": "^1.0.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "update-electron-app": "^3.0.0"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@electron-forge/cli": "7.4.0",
@@ -38,23 +40,27 @@
     "@electron-forge/maker-rpm": "^7.4.0",
     "@electron-forge/maker-squirrel": "^7.4.0",
     "@electron-forge/maker-zip": "^7.4.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
     "@electron-forge/publisher-github": "^7.4.0",
     "@types/deasync": "^0",
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^20.14.9",
+    "@types/node": "^20.14",
     "@types/node-abi": "^3",
     "@types/parcel-bundler": "^1",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "electron": "31.1.0",
+    "@types/react": "^18.3",
+    "@types/react-dom": "^18.3",
+    "dotenv": "^16.4.5",
+    "electron": "^31",
+    "electron-squirrel-startup": "^1.0.1",
     "fs-extra": "^11.2.0",
     "less": "^4.2.0",
-    "node-abi": "^3.65.0",
-    "node-gyp": "^10.1.0",
+    "node-abi": "^3",
+    "node-gyp": "^10",
     "parcel-bundler": "^1.12.5",
     "prettier": "^3.3.2",
     "rimraf": "^5.0.7",
     "tslib": "^2.6.3",
-    "typescript": "^5.5.2"
+    "typescript": "^5.5.2",
+    "update-electron-app": "^3.0.0"
   }
 }
