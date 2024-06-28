@@ -8,8 +8,10 @@ out/
 src/images/
 images_*/
 dist/
-.yarn/
 .vs/
+
+.yarn/
+yarn.lock
 
 .DS_Store
 

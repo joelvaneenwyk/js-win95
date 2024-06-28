@@ -10,6 +10,10 @@ on:
 
 env:
   NODE_VERSION: 20.x
+  NPM: npm
+  LOCKFILE: package-lock.json
+  CACHE_YARN: yarn config get cacheFolder
+  CACHE_NPM: npm config get cache
 
 jobs:
   lint:
@@ -25,23 +29,23 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - run: npm install -g corepack@latest yarn@latest
+      - run: ${{ env.NPM }} install -g corepack@latest yarn@latest
       - run: corepack enable
       - run: corepack install
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "cache-folder=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+      - name: Get cache directory path
+        id: node-cache-dir-path
+        run: echo "cache-folder=$($CACHE_NPM)" >> $GITHUB_OUTPUT
 
       - uses: actions/cache@v4
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        id: node-cache # use this to check for `cache-hit` (`steps.node-cache.outputs.cache-hit != 'true'`)
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.cache-folder }}
-          key: yarn-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-      - run: yarn install
+          path: ${{ steps.node-cache-dir-path.outputs.cache-folder }}
+          key: node-${{ runner.os }}-${{ hashFiles('**/${LOCKFILE}') }}
+      - run: ${{ env.NPM }} install
 
       - name: lint
-        run: yarn lint
+        run: ${{ env.NPM }} run lint
 
   build:
     needs: lint
@@ -79,21 +83,20 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - run: npm install -g corepack@latest yarn@latest
+      - run: ${{ env.NPM }} install -g corepack@latest yarn@latest
       - run: corepack enable
       - run: corepack install
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "cache-folder=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+      - name: Get cache directory path
+        id: node-cache-dir-path
+        run: echo "cache-folder=$($CACHE_NPM)" >> $GITHUB_OUTPUT
 
       - uses: actions/cache@v4
-        if: matrix.os != 'macOS-latest'
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        id: node-cache # use this to check for `cache-hit` (`steps.node-cache.outputs.cache-hit != 'true'`)
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.cache-folder }}
-          key: yarn-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-      - run: yarn install
+          path: ${{ steps.node-cache-dir-path.outputs.cache-folder }}
+          key: node-${{ runner.os }}-${{ hashFiles('**/${LOCKFILE}') }}
+      - run: ${{ env.NPM }} install
 
       - name: Set MacOS signing certs
         if: matrix.os == 'macOS-latest'
@@ -124,10 +127,10 @@ jobs:
           DISK_URL: ${{ secrets.DISK_URL }}
 
       - name: Install packages
-        run: yarn
+        run: ${{ env.NPM }} install
 
       - name: Make
-        run: yarn make --arch=${{ matrix.arch }}
+        run: ${{ env.NPM }} run make --arch=${{ matrix.arch }}
         env:
           APPLE_ID: ${{ secrets.APPLE_ID || '' }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD || '' }}
