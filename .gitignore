@@ -2,6 +2,7 @@
 # Windows 95 ignore list
 #
 
+.build/
 node_modules/
 out/
 
@@ -23,3 +24,6 @@ yarn.lock
 .flaskenv*
 !.env.project
 !.env.vault
+
+/*.img
+/*.bin
