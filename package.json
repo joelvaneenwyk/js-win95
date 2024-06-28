@@ -2,8 +2,11 @@
   "name": "windows95",
   "productName": "windows95",
   "version": "3.1.2",
-  "description": "Windows 95, in an app. I'm sorry.",
+  "description": "Windows 95 running in an Electron application.",
   "main": "./dist/src/main/main.js",
+  "author": "Felix Rieseberg, felix@felixrieseberg.com",
+  "license": "MIT",
+  "packageManager": "yarn@4.3.1+sha512.af78262d7d125afbfeed740602ace8c5e4405cd7f4735c08feb327286b2fdb2390fbca01589bfd1f50b1240548b74806767f5a063c94b67e431aabd0d86f7774",
   "scripts": {
     "start": "rimraf ./dist && electron-forge start",
     "build": "yarn make",
@@ -15,13 +18,23 @@
     "tsc": "tsc -p tsconfig.json --noEmit",
     "check-links": "node tools/check-links.js"
   },
-  "keywords": [],
-  "author": "Felix Rieseberg, felix@felixrieseberg.com",
-  "license": "MIT",
   "config": {
     "forge": "./forge.config.js"
   },
   "dependencies": {
+    "electron": "31.1.0",
+    "electron-squirrel-startup": "^1.0.1",
+    "fs-extra": "^11.2.0",
+    "less": "^4.2.0",
+    "node-abi": "^3.65.0",
+    "parcel-bundler": "^1.12.5",
+    "prettier": "^3.3.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tslib": "^2.6.3",
+    "update-electron-app": "^3.0.0"
+  },
+  "devDependencies": {
     "@electron-forge/cli": "7.4.0",
     "@electron-forge/maker-deb": "7.4.0",
     "@electron-forge/maker-flatpak": "^7.4.0",
@@ -32,32 +45,11 @@
     "@types/deasync": "^0",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.14.9",
+    "@types/parcel-bundler": "^1",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "electron": "31.1.0",
-    "electron-squirrel-startup": "^1.0.1",
-    "fs-extra": "^11.2.0",
-    "less": "^4.2.0",
-    "node-abi": "^3.65.0",
-    "parcel-bundler": "^1.12.5",
-    "prettier": "^3.3.2",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
     "rimraf": "^5.0.7",
-    "tslib": "^2.6.3",
-    "typescript": "^5.5.2",
-    "update-electron-app": "^3.0.0"
-  },
-  "packageManager": "yarn@4.3.1+sha512.af78262d7d125afbfeed740602ace8c5e4405cd7f4735c08feb327286b2fdb2390fbca01589bfd1f50b1240548b74806767f5a063c94b67e431aabd0d86f7774",
-  "devDependencies": {
-    "@electron-forge/cli": "7.4.0",
-    "@electron-forge/maker-deb": "7.4.0",
-    "@electron-forge/maker-flatpak": "^7.4.0",
-    "@electron-forge/maker-rpm": "^7.4.0",
-    "@electron-forge/maker-squirrel": "^7.4.0",
-    "@electron-forge/maker-zip": "^7.4.0",
-    "@electron-forge/publisher-github": "^7.4.0",
-    "@types/parcel-bundler": "^1",
-    "electron": "31.1.0"
+    "typescript": "^5.5.2"
   }
 }
