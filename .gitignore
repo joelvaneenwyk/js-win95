@@ -4,9 +4,9 @@
 
 node_modules/
 out/
+
 src/images/
-images/
-images_new/
+images_*/
 dist/
 .yarn/
 .vs/
@@ -16,3 +16,8 @@ dist/
 *.code-workspace
 *.pfx
 *.DotSettings.user
+
+.env*
+.flaskenv*
+!.env.project
+!.env.vault
