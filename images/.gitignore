@@ -1,4 +1,10 @@
+#
+# windows95 // images // Ignore list
+#
+
+# Always ignore archives
 *.zip
-*.img
-*.iso
-*.bin
+
+windows95.img
+manifest.txt
+default-state.bin
