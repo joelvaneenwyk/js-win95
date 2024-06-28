@@ -39,6 +39,9 @@ module.exports = {
       ascProvider: 'LT94ZKYDCJ'
     },
     ignore: [
+      /\/\.github(\/?)/,
+      /\/\.yarn(\/?)/,
+      /\/\.vs(\/?)/,
       /\/assets(\/?)/,
       /\/docs(\/?)/,
       /\/tools(\/?)/,
@@ -48,7 +51,6 @@ module.exports = {
       /tsconfig\.json/,
       /Dockerfile/,
       /issue_template\.md/,
-      /HELP\.md/,
     ]
   },
   makers: [
