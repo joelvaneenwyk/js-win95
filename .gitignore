@@ -11,8 +11,13 @@ images_*/
 dist/
 .vs/
 
+.parcel-cache/
+.cache/
+
 .yarn/
 yarn.lock
+.pnp.cjs
+.pnp.loader.mjs
 
 .DS_Store
 
