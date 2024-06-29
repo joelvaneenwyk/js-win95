@@ -3,16 +3,12 @@
   "tasks": [
     {
       "type": "eslint",
-      "problemMatcher": [
-        "$eslint-stylish"
-      ],
+      "problemMatcher": ["$eslint-stylish"],
       "label": "eslint: lint whole folder"
     },
     {
       "type": "markdownlint",
-      "problemMatcher": [
-        "$markdownlint"
-      ],
+      "problemMatcher": ["$markdownlint"],
       "label": "markdownlint: Lint all Markdown files in the workspace with markdownlint"
     },
     {

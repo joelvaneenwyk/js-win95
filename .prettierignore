@@ -10,6 +10,5 @@ node_modules/
 .git/
 dist/
 
-
 src/renderer/lib/*.js
-vendor/*.css
+src/less/vendor/*.css

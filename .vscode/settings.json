@@ -1,4 +1,7 @@
 {
+  "files.associations": {
+    "LICENSE": "plaintext"
+  },
   "[javascript][typescript][javascriptreact][typescriptreact]": {
     "editor.codeActionsOnSave": {
       "source.addMissingImports.ts": "explicit",
