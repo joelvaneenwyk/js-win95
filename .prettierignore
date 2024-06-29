@@ -2,13 +2,23 @@
 # Prettier ignore list
 #
 
-images/
-node_modules/
+.git/
 .idea/
 .task/
+
+node_modules/
+
 .build/
-.git/
 dist/
+out/
+
+images/
+
+/.env
+/.env.*
 
 src/renderer/lib/*.js
 src/less/vendor/*.css
+
+*.img
+*.bin
