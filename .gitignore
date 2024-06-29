@@ -32,3 +32,4 @@ yarn.lock
 
 /*.img
 /*.bin
+/pnpm-lock.yaml
