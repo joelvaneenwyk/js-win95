@@ -56,7 +56,7 @@ export class CardDrive extends React.Component<CardDriveProps, CardDriveState> {
           freeware tool{" "}
           <a
             target="_blank"
-            href="https://www.osforensics.com/tools/mount-disk-images.html"
+            href="https://www.osforensics.com/tools/mount-disk-images.html" rel="noreferrer"
           >
             OSFMount
           </a>
