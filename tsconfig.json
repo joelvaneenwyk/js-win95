@@ -24,7 +24,7 @@
     "typeRoots": ["./node_modules/@types"],
     "baseUrl": "."
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "tools/*.js"],
   "exclude": ["node_modules"],
   "formatCodeOptions": {
     "indentSize": 2,

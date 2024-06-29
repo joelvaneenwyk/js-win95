@@ -7,45 +7,62 @@
 //import { fixupConfigRules } from "@eslint/compat";
 //import eslintConfigPrettier from "eslint-config-prettier";
 
+const globals = require('globals');
 const tsPlugin = require('@typescript-eslint/eslint-plugin');
 const tsEslint = require('typescript-eslint');
+
+const eslintPluginPrettier = require('eslint-plugin-prettier');
+const react = require('eslint-plugin-react/configs/recommended');
 
 /**
  * @type {import('eslint').Linter.FlatConfig[]}
  */
 module.exports = [
-  // This is just an example for rules specific to JS files
-  {
-    files: ['**/*.js'],
-
-    rules: {
-      'no-duplicate-imports': 'error',
-    },
-  },
-
   ...tsEslint.configs.recommendedTypeChecked.map((config) => ({
     ...config,
-    files: ['**/*.ts'], // We use TS config only for TS files
+    files: ['**/*.{ts,tsx}'], // We use TS config only for TS files
   })),
 
+  // https://github.com/jsx-eslint/eslint-plugin-react#configuration
   {
-    files: ['**/*.ts'],
+    files: ['src/**/*.{ts,tsx}'],
+    ignores: ['dist/**/*.js'],
+    settings: {
+      react: {
+        version: 'detect',
+      }
+    },
+    ...react
+  },
+
+  {
+    files: ['src/**/*.{ts,tsx}'],
+    ignores: ['dist/**/*.js'],
 
     // This is required, see the docs
     languageOptions: {
+      ecmaVersion: 2022,
       parserOptions: {
+        ecmaFeatures: {
+          jsx: true
+        },
+        ecmaVersion: 2022,
         project: true,
         tsconfigRootDir: __dirname, // or import.meta.dirname for ESM
       },
+      globals: { ...globals.browser, ...globals.es2024 },
     },
 
     // This is needed in order to specify the desired behavior for its rules
     plugins: {
       '@typescript-eslint': tsPlugin,
+      'prettier': eslintPluginPrettier,
     },
 
     // After defining the plugin, you can use the rules like this
     rules: {
+      'react/jsx-uses-react': 'error',
+      'react/jsx-uses-vars': 'error',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': 'error',
       "@typescript-eslint/no-floating-promises": 'off',
@@ -58,7 +75,7 @@ module.exports = [
       "@typescript-eslint/no-var-requires": 'off',
       "@typescript-eslint/require-await": 'off',
     }
-  }
+  },
 ];
 
 //export default tseslint.config(
