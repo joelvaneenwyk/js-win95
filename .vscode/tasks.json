@@ -1,0 +1,38 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "eslint",
+      "problemMatcher": [
+        "$eslint-stylish"
+      ],
+      "label": "eslint: lint whole folder"
+    },
+    {
+      "type": "markdownlint",
+      "problemMatcher": [
+        "$markdownlint"
+      ],
+      "label": "markdownlint: Lint all Markdown files in the workspace with markdownlint"
+    },
+    {
+      "type": "npm",
+      "script": "build:debug",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "npm: build:debug",
+      "detail": "build (debug)"
+    },
+    {
+      "type": "npm",
+      "script": "build",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "label": "npm: build",
+      "detail": "npm run package"
+    }
+  ]
+}

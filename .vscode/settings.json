@@ -1,5 +1,5 @@
 {
-  "[javascriptreact][typescriptreact]": {
+  "[javascript][typescript][javascriptreact][typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": "explicit",
@@ -30,5 +30,12 @@
     "typescript",
     "typescriptreact"
   ],
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.format.enable": false,
+  "typescript.surveys.enabled": false,
+  "typescript.reportStyleChecksAsWarnings": false,
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.check.npmIsInstalled": true,
+  "typescript.implementationsCodeLens.enabled": true,
+  "typescript.tsc.autoDetect": "build"
 }
