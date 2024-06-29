@@ -93,11 +93,11 @@ jobs:
       - name: Setup Corepack
         shell: bash
         env:
-          SUDO: ${{ runner.os == 'Windows' && '' || 'sudo' }}
+          SUDO: ${{ runner.os == 'Linux' && 'sudo' }}
         run: |
-          ${SUDO} npm install -g corepack@latest
-          ${SUDO} corepack enable
-          ${SUDO} corepack install
+          ${SUDO:-} npm install -g corepack@latest
+          ${SUDO:-} corepack enable
+          ${SUDO:-} corepack install
 
       - name: Get cache directory path
         id: node-cache-dir-path
