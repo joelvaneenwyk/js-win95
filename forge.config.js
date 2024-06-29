@@ -1,6 +1,6 @@
 const path = require("path");
 const fs = require("fs");
-const package = require("./package.json");
+const package_json = require("./package.json");
 
 require("dotenv").config();
 
@@ -78,7 +78,7 @@ module.exports = {
           iconUrl:
             "https://raw.githubusercontent.com/joelvaneenwyk/windows95/develop/assets/icon.ico",
           loadingGif: "./assets/boot.gif",
-          setupExe: `windows95-${package.version}-setup-${arch}.exe`,
+          setupExe: `windows95-${package_json.version}-setup-${arch}.exe`,
           setupIcon: path.resolve(__dirname, "assets", "icon.ico"),
           certificateFile: process.env["WINDOWS_CODESIGN_FILE"],
           certificatePassword: process.env["WINDOWS_CODESIGN_PASSWORD"]
