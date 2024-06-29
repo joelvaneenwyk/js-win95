@@ -26,6 +26,8 @@
   "eslint.enable": true,
   "eslint.format.enable": true,
   "eslint.lintTask.enable": true,
+  "eslint.lintTask.options": ".",
+  "eslint.useFlatConfig": true,
   "eslint.validate": [
     "javascript",
     "javascriptreact",
