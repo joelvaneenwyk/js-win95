@@ -1,0 +1,15 @@
+#
+# Prettier ignore list
+#
+
+images/
+node_modules/
+.idea/
+.task/
+.build/
+.git/
+dist/
+
+
+src/renderer/lib/*.js
+vendor/*.css

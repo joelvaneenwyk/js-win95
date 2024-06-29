@@ -11,7 +11,7 @@ insert_final_newline = true
 
 # Prettier
 max_line_length = 85
-quote_type = double
+quote_type = single
 
 [*.md]
 indent_size = 2
@@ -32,4 +32,4 @@ indent_size = 2
 indent_size = 2
 
 [*.{html,htm}]
-indent_size = 4
+indent_size = 2
