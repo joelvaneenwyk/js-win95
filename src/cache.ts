@@ -17,8 +17,8 @@ export async function clearStorageData() {
   }
 
   await session.defaultSession.clearStorageData({
+    // @joelvaneenwyk #review - Removed 'appcache'
     storages: [
-      "appcache",
       "cookies",
       "filesystem",
       "indexdb",
@@ -27,6 +27,7 @@ export async function clearStorageData() {
       "websql",
       "serviceworkers",
     ],
-    quotas: ["temporary", "persistent", "syncable"],
+    // @joelvaneenwyk #review - Removed 'persistent'
+    quotas: ["temporary", "syncable"],
   });
 }

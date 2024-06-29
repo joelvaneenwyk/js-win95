@@ -85,12 +85,12 @@ export class EmulatorInfo extends React.Component<
     }
 
     // TypeScript think's we're using a Node.js setInterval. We're not.
-    this.cpuInterval = setInterval(this.cpuCount, 500) as unknown as number;
+    this.cpuInterval = setInterval(() => this.cpuCount(), 500) as unknown as number;
 
     // Disk
-    emulator.add_listener("ide-read-start", this.onIDEReadStart);
-    emulator.add_listener("ide-read-end", this.onIDEReadWriteEnd);
-    emulator.add_listener("ide-write-end", this.onIDEReadWriteEnd);
+    emulator.add_listener("ide-read-start", () => this.onIDEReadStart());
+    emulator.add_listener("ide-read-end", () => this.onIDEReadWriteEnd());
+    emulator.add_listener("ide-write-end", () => this.onIDEReadWriteEnd());
 
     // Screen
     emulator.add_listener("screen-set-size-graphical", console.log);
@@ -115,9 +115,9 @@ export class EmulatorInfo extends React.Component<
     }
 
     // Disk
-    emulator.remove_listener("ide-read-start", this.onIDEReadStart);
-    emulator.remove_listener("ide-read-end", this.onIDEReadWriteEnd);
-    emulator.remove_listener("ide-write-end", this.onIDEReadWriteEnd);
+    emulator.remove_listener("ide-read-start", () => this.onIDEReadStart());
+    emulator.remove_listener("ide-read-end", () => this.onIDEReadWriteEnd());
+    emulator.remove_listener("ide-write-end", () => this.onIDEReadWriteEnd());
 
     // Screen
     emulator.remove_listener("screen-set-size-graphical", console.log);

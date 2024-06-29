@@ -24,9 +24,10 @@ export function getOrCreateWindow(): BrowserWindow {
   mainWindow.webContents.on("will-navigate", (event, url) =>
     handleNavigation(event, url)
   );
-  mainWindow.webContents.on("new-window", (event, url) =>
-    handleNavigation(event, url)
-  );
+  // @joelvaneenwyk #review - Fix
+  //mainWindow.webContents.on("new-window", (event, url) =>
+  //  handleNavigation(event, url)
+  //);
 
   mainWindow.on("closed", () => {
     mainWindow = null;

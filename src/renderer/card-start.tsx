@@ -4,7 +4,7 @@ export interface CardStartProps {
   startEmulator: () => void;
 }
 
-export class CardStart extends React.Component<CardStartProps, {}> {
+export class CardStart extends React.Component<CardStartProps, object> {
   public render() {
     return (
       <section id="section-start">

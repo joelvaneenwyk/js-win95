@@ -1,15 +1,15 @@
-import * as React from "react";
+import { ipcRenderer, shell } from "electron";
 import * as fs from "fs-extra";
 import * as path from "path";
-import { ipcRenderer, shell } from "electron";
+import * as React from "react";
 
 import { CONSTANTS, IPC_COMMANDS } from "../constants";
 import { getDiskImageSize } from "../utils/disk-image-size";
-import { CardStart } from "./card-start";
-import { StartMenu } from "./start-menu";
-import { CardSettings } from "./card-settings";
-import { EmulatorInfo } from "./emulator-info";
 import { CardDrive } from "./card-drive";
+import { CardSettings } from "./card-settings";
+import { CardStart } from "./card-start";
+import { EmulatorInfo } from "./emulator-info";
+import { StartMenu } from "./start-menu";
 import { getStatePath } from "./utils/get-state-path";
 
 export interface EmulatorState {
@@ -24,11 +24,11 @@ export interface EmulatorState {
   isRunning: boolean;
 }
 
-export class Emulator extends React.Component<{}, EmulatorState> {
+export class Emulator extends React.Component<object, EmulatorState> {
   private isQuitting = false;
   private isResetting = false;
 
-  constructor(props: {}) {
+  constructor(props: object) {
     super(props);
 
     this.startEmulator = this.startEmulator.bind(this);
@@ -150,10 +150,10 @@ export class Emulator extends React.Component<{}, EmulatorState> {
       ]);
     });
 
-    ipcRenderer.on(IPC_COMMANDS.MACHINE_STOP, this.stopEmulator);
-    ipcRenderer.on(IPC_COMMANDS.MACHINE_RESET, this.resetEmulator);
-    ipcRenderer.on(IPC_COMMANDS.MACHINE_START, this.startEmulator);
-    ipcRenderer.on(IPC_COMMANDS.MACHINE_RESTART, this.restartEmulator);
+    ipcRenderer.on(IPC_COMMANDS.MACHINE_STOP, () => this.stopEmulator());
+    ipcRenderer.on(IPC_COMMANDS.MACHINE_RESET, () => this.resetEmulator());
+    ipcRenderer.on(IPC_COMMANDS.MACHINE_START, () => this.startEmulator());
+    ipcRenderer.on(IPC_COMMANDS.MACHINE_RESTART, () => this.restartEmulator());
 
     ipcRenderer.on(IPC_COMMANDS.TOGGLE_INFO, () => {
       this.setState({ isInfoDisplayed: !this.state.isInfoDisplayed });
@@ -195,15 +195,15 @@ export class Emulator extends React.Component<{}, EmulatorState> {
         <CardSettings
           setFloppy={(floppyFile) => this.setState({ floppyFile })}
           setCdrom={(cdromFile) => this.setState({ cdromFile })}
-          bootFromScratch={this.bootFromScratch}
+          bootFromScratch={() => this.bootFromScratch()}
           floppy={floppyFile}
           cdrom={cdromFile}
         />
       );
     } else if (currentUiCard === "drive") {
-      card = <CardDrive showDiskImage={this.showDiskImage} />;
+      card = <CardDrive showDiskImage={() => this.showDiskImage()} />;
     } else {
-      card = <CardStart startEmulator={this.startEmulator} />;
+      card = <CardStart startEmulator={() => this.startEmulator()} />;
     }
 
     return (
@@ -311,11 +311,11 @@ export class Emulator extends React.Component<{}, EmulatorState> {
 
     console.log(`🚜 Starting emulator with options`, options);
 
-    window["emulator"] = new V86Starter(options);
+    (window as any)["emulator"] = new V86Starter(options);
 
     // New v86 instance
     this.setState({
-      emulator: window["emulator"],
+      emulator: (window as any)["emulator"],
       isRunning: true,
     });
 

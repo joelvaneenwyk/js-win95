@@ -27,8 +27,8 @@ export class App {
   }
 }
 
-window["win95"] = window["win95"] || {
+(window as any)["win95"] = (window as any)["win95"] || {
   app: new App(),
 };
 
-window["win95"].app.setup();
+(window as any)["win95"].app.setup();

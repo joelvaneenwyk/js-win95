@@ -86,7 +86,7 @@ export class CardDrive extends React.Component<CardDriveProps, CardDriveState> {
         <legend>Changing the disk on Linux</legend>
         <p>
           There are plenty of tools that enable Linux users to mount and modify
-          disk images. The disk image used by windows95 is a raw "img" disk
+          disk images. The disk image used by windows95 is a raw &quot;img&quot; disk
           image and can probably be mounted using the <code>mount</code> tool,
           which is likely installed on your machine.
         </p>

@@ -14,11 +14,11 @@ const LINKS = {
 export async function setupMenu() {
   await createMenu();
 
-  ipcMain.on(IPC_COMMANDS.MACHINE_STARTED, () =>
-    createMenu({ isRunning: true })
+  ipcMain.on(IPC_COMMANDS.MACHINE_STARTED, async () =>
+    await createMenu({ isRunning: true })
   );
-  ipcMain.on(IPC_COMMANDS.MACHINE_STOPPED, () =>
-    createMenu({ isRunning: false })
+  ipcMain.on(IPC_COMMANDS.MACHINE_STOPPED, async () =>
+    await createMenu({ isRunning: false })
   );
 }
 

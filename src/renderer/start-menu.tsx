@@ -4,7 +4,7 @@ export interface StartMenuProps {
   navigate: (to: string) => void;
 }
 
-export class StartMenu extends React.Component<StartMenuProps, {}> {
+export class StartMenu extends React.Component<StartMenuProps, object> {
   constructor(props: StartMenuProps) {
     super(props);
 
@@ -14,13 +14,18 @@ export class StartMenu extends React.Component<StartMenuProps, {}> {
   public render() {
     return (
       <nav className="nav nav-bottom">
-        <a onClick={this.navigate} href="#" id="start" className="nav-link">
+        <a
+          onClick={(event) => this.navigate(event)}
+          href="#"
+          id="start"
+          className="nav-link"
+        >
           <img src="../../static/start.png" alt="Start" />
           <span>Start</span>
         </a>
         <div className="nav-menu">
           <a
-            onClick={this.navigate}
+            onClick={(event) => this.navigate(event)}
             href="#"
             id="settings"
             className="nav-link"
@@ -28,7 +33,12 @@ export class StartMenu extends React.Component<StartMenuProps, {}> {
             <img src="../../static/settings.png" />
             <span>Settings</span>
           </a>
-          <a onClick={this.navigate} href="#" id="drive" className="nav-link">
+          <a
+            onClick={(event) => this.navigate(event)}
+            href="#"
+            id="drive"
+            className="nav-link"
+          >
             <img src="../../static/drive.png" />
             <span>Modify C: Drive</span>
           </a>
@@ -37,7 +47,7 @@ export class StartMenu extends React.Component<StartMenuProps, {}> {
     );
   }
 
-  private navigate(event: React.SyntheticEvent<HTMLAnchorElement>) {
+  public navigate(event: React.SyntheticEvent<HTMLAnchorElement>) {
     this.props.navigate(event.currentTarget.id);
   }
 }

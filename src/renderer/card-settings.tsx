@@ -1,7 +1,10 @@
-import * as React from "react";
 import * as fs from "fs-extra";
+import * as React from "react";
 
 import { getStatePath } from "./utils/get-state-path";
+
+// CD is currently not working, so.. let's return nothing.
+const DisableCdrom = true;
 
 interface CardSettingsProps {
   bootFromScratch: () => void;
@@ -54,12 +57,9 @@ export class CardSettings extends React.Component<
   }
 
   public renderCdrom() {
-    // CD is currently not working, so.. let's return nothing.
-    return null;
-
     const { cdrom } = this.props;
 
-    return (
+    return DisableCdrom ? null : ( // Return 'null' if CD-ROM functionality is disabled
       <fieldset>
         <legend>
           <img src="../../static/cdrom.png" />
@@ -68,21 +68,19 @@ export class CardSettings extends React.Component<
         <input
           id="cdrom-input"
           type="file"
-          onChange={this.onChangeCdrom}
+          onChange={(event) => this.onChangeCdrom(event)}
           style={{ display: "none" }}
         />
         <p>
           windows95 comes with a virtual CD drive. It can mount images in the
-          "iso" format.
+          &quot;iso&quot; format.
         </p>
         <p id="floppy-path">
           {cdrom ? `Inserted CD: ${cdrom?.path}` : `No CD mounted`}
         </p>
         <button
           className="btn"
-          onClick={() =>
-            (document.querySelector("#cdrom-input") as any).click()
-          }
+          onClick={() => document.querySelector<HTMLElement>("#cdrom-input")?.click()}
         >
           <img src="../../static/select-cdrom.png" />
           <span>Mount CD</span>
@@ -103,33 +101,29 @@ export class CardSettings extends React.Component<
         <input
           id="floppy-input"
           type="file"
-          onChange={this.onChangeFloppy}
+          onChange={(event) => this.onChangeFloppy(event)}
           style={{ display: "none" }}
         />
         <p>
           windows95 comes with a virtual floppy drive. It can mount floppy disk
-          images in the "img" format.
+          images in the &quot;img&quot; format.
         </p>
         <p>
-          Back in the 90s and before CD-ROMs became a popular, software was
-          typically distributed on floppy disks. Some developers have since
-          released their apps or games for free, usually on virtual floppy disks
-          using the "img" format.
+          Back in the 90s and before CD-ROMs became a popular, software was typically
+          distributed on floppy disks. Some developers have since released their apps
+          or games for free, usually on virtual floppy disks using the
+          &quot;img&quot; format.
         </p>
         <p>
-          Once you've mounted a disk image, you might have to boot your virtual
+          Once you&apos;ve mounted a disk image, you might have to boot your virtual
           windows95 machine from scratch.
         </p>
         <p id="floppy-path">
-          {floppy
-            ? `Inserted Floppy Disk: ${floppy.path}`
-            : `No floppy mounted`}
+          {floppy ? `Inserted Floppy Disk: ${floppy.path}` : `No floppy mounted`}
         </p>
         <button
           className="btn"
-          onClick={() =>
-            (document.querySelector("#floppy-input") as any).click()
-          }
+          onClick={() => document.querySelector<HTMLElement>("#floppy-input")?.click()}
         >
           <img src="../../static/select-floppy.png" />
           <span>Mount floppy disk</span>
@@ -150,14 +144,13 @@ export class CardSettings extends React.Component<
         </legend>
         <div>
           <p>
-            windows95 stores changes to your machine (like saved files) in a
-            state file. If you encounter any trouble, you can reset your state
-            or boot Windows 95 from scratch.{" "}
-            <strong>All your changes will be lost.</strong>
+            windows95 stores changes to your machine (like saved files) in a state
+            file. If you encounter any trouble, you can reset your state or boot
+            Windows 95 from scratch. <strong>All your changes will be lost.</strong>
           </p>
           <button
             className="btn"
-            onClick={this.onResetState}
+            onClick={() => this.onResetState()}
             disabled={isStateReset}
             style={{ marginRight: "5px" }}
           >

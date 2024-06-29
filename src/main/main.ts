@@ -18,7 +18,8 @@ export async function onReady() {
   setupIpcListeners();
   getOrCreateWindow();
   setupAboutPanel();
-  setupMenu();
+  // @joelvaneenwyk #review - Validate correctness
+  await setupMenu();
   setupUpdates();
 }
 
