@@ -16,9 +16,8 @@ env:
 
 jobs:
   lint:
+    name: 'Lint 🔍'
     runs-on: ubuntu-latest
-    env:
-      SUDO: 'sudo'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -30,9 +29,14 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - run: ${{ env.SUDO }} npm install -g corepack@latest
-      - run: ${{ env.SUDO }} corepack enable
-      - run: ${{ env.SUDO }} corepack install
+      - name: Setup Corepack
+        shell: bash
+        env:
+          SUDO: ${{ runner.os == 'Windows' && '' || 'sudo' }}
+        run: |
+          ${SUDO} npm install -g corepack@latest
+          ${SUDO} corepack enable
+          ${SUDO} corepack install
 
       - name: Get cache directory path
         id: node-cache-dir-path
@@ -53,6 +57,8 @@ jobs:
         run: ${{ env.NPM }} run lint
 
   build:
+    name: 'Build // ${{ matrix.os }} // ${{ matrix.arch }}'
+    runs-on: '${{ matrix.os }}-latest'
     needs: lint
     strategy:
       fail-fast: false
@@ -73,10 +79,6 @@ jobs:
         exclude:
           - os: windows
             arch: arm64
-    env:
-      SUDO: ${{ matrix.os == 'windows' && '' || 'sudo' }}
-    name: 'Build // ${{ matrix.os }} // ${{ matrix.arch }}'
-    runs-on: '${{ matrix.os }}-latest'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -88,9 +90,14 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - run: ${{ env.SUDO }} npm install -g corepack@latest
-      - run: ${{ env.SUDO }} corepack enable
-      - run: ${{ env.SUDO }} corepack install
+      - name: Setup Corepack
+        shell: bash
+        env:
+          SUDO: ${{ runner.os == 'Windows' && '' || 'sudo' }}
+        run: |
+          ${SUDO} npm install -g corepack@latest
+          ${SUDO} corepack enable
+          ${SUDO} corepack install
 
       - name: Get cache directory path
         id: node-cache-dir-path
