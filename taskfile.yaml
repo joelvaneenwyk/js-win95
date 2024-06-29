@@ -2,6 +2,25 @@
 
 version: '3'
 
+set: [pipefail]
+shopt: [globstar]
+dotenv:
+  - .env
+
+vars:
+  BUILD_DIR: '{{ .TASKFILE_DIR }}/.build'
+  BIN_DIR: '{{ .BUILD_DIR }}/bin'
+
+  BREW: '/home/linuxbrew/.linuxbrew/bin/brew'
+  BREW_INSTALL_SCRIPT: '{{ .BIN_DIR }}/install-brew.sh'
+  BREW_INSTALL_URI: 'https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh'
+
+  RUN_WINDOWS: 'cmd /d /c'
+  RUN_UNIX: 'sh -c'
+  RUN: '{{if eq OS "windows"}}{{.RUN_WINDOWS}}{{ else }}{{.RUN_UNIX}}{{ end }}'
+
+  DOTENV_VAULT: npx --yes dotenv-vault@latest
+
 tasks:
   default:
     cmds:
@@ -10,12 +29,41 @@ tasks:
   build:
     deps: [install]
     cmds:
-      - npm install
-      - npm run lint
       - npm run build
+
+  lint:
+    deps: [install]
+    cmds:
+      - npm run lint
+
+  start:
+    deps: [install]
+    cmds:
+      - npm start
+
+  download-disk-sh:
+    deps: [dotenv-pull]
+    preconditions:
+      - bash --version
+    status:
+      - 'test -f "{{.TASKFILE_DIR}}/.env"'
+      - 'test -f "{{.TASKFILE_DIR}}/images/windows95.img"'
+    cmds:
+      - cmd: "{{.TASKFILE_DIR}}/tools/download-disk.sh"
+
+  download-disk-pwsh:
+    deps: [dotenv-pull]
+    preconditions:
+      - pwsh --version
+    status:
+      - 'test -f "{{.TASKFILE_DIR}}/.env"'
+      - 'test -f "{{.TASKFILE_DIR}}/images/windows95.img"'
+    cmds:
+      - cmd: 'pwsh -NoProfile -File "{{.TASKFILE_DIR}}/tools/download-disk.ps1"'
 
   install:
     cmds:
+      - cmd: npm install
       - task: install-dependencies-ubuntu
 
   install-dependencies-ubuntu:
@@ -28,3 +76,35 @@ tasks:
     cmds:
       - cmd: sudo apt-get update
       - cmd: sudo apt-get install -y rpm
+
+  dotenv-login:
+    internal: true
+    status:
+      - 'test -f "{{ .TASKFILE_DIR }}/.env.me"'
+    sources:
+      - .env.vault
+    generates:
+      - .env.me
+    cmds:
+      - cmd: '{{ .DOTENV_VAULT }} login --yes'
+
+  dotenv-push:
+    internal: true
+    deps: [dotenv-login]
+    preconditions:
+      - 'test -f "{{ .TASKFILE_DIR }}/.env"'
+      - 'test -f "{{ .TASKFILE_DIR }}/.env.me"'
+      - 'test -f "{{ .TASKFILE_DIR }}/.env.vault"'
+    cmds:
+      - cmd: '{{ .DOTENV_VAULT }} push --yes'
+
+  dotenv-pull:
+    deps: [dotenv-login]
+    status:
+      - 'test -f "{{ .TASKFILE_DIR }}/.env"'
+    sources:
+      - .env.vault
+    generates:
+      - .env
+    cmds:
+      - cmd: '{{ .DOTENV_VAULT }} pull --yes'

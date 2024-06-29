@@ -2,6 +2,7 @@
 # Windows 95 ignore list
 #
 
+.task/
 .build/
 node_modules/
 out/
