@@ -1,21 +1,21 @@
-const path = require('path');
-const fs = require('fs');
-const package_json = require('./package.json');
+const path = require('path')
+const fs = require('fs')
+const package_json = require('./package.json')
 
-require('dotenv').config();
+require('dotenv').config()
 
 if (process.env['WINDOWS_CODESIGN_FILE']) {
-  const certPath = path.join(__dirname, 'win-certificate.pfx');
-  const certExists = fs.existsSync(certPath);
+  const certPath = path.join(__dirname, 'win-certificate.pfx')
+  const certExists = fs.existsSync(certPath)
 
   if (certExists) {
-    process.env['WINDOWS_CODESIGN_FILE'] = certPath;
+    process.env['WINDOWS_CODESIGN_FILE'] = certPath
   }
 }
 
 module.exports = {
   hooks: {
-    generateAssets: require('./tools/generate-assets'),
+    generateAssets: require('./tools/generate-assets')
   },
   packagerConfig: {
     asar: true,
@@ -24,10 +24,10 @@ module.exports = {
     appCategoryType: 'public.app-category.developer-tools',
     win32metadata: {
       CompanyName: 'Felix Rieseberg',
-      OriginalFilename: 'windows95',
+      OriginalFilename: 'windows95'
     },
     linux: {
-      target: 'zip',
+      target: 'zip'
     },
     osxSign: {
       identity: 'Developer ID Application: Felix Rieseberg (LT94ZKYDCJ)',
@@ -35,13 +35,13 @@ module.exports = {
       'gatekeeper-assess': false,
       entitlements: 'assets/entitlements.plist',
       'entitlements-inherit': 'assets/entitlements.plist',
-      'signature-flags': 'library',
+      'signature-flags': 'library'
     },
     osxNotarize: {
       appBundleId: 'com.felixrieseberg.macintoshjs',
       appleId: process.env['APPLE_ID'],
       appleIdPassword: process.env['APPLE_ID_PASSWORD'],
-      ascProvider: 'LT94ZKYDCJ',
+      ascProvider: 'LT94ZKYDCJ'
     },
     ignore: [
       /\/\.github(\/?)/,
@@ -55,14 +55,14 @@ module.exports = {
       /README\.md/,
       /tsconfig\.json/,
       /Dockerfile/,
-      /issue_template\.md/,
-    ],
+      /issue_template\.md/
+    ]
   },
   rebuildConfig: {},
   makers: [
     {
       name: '@electron-forge/maker-zip',
-      platforms: ['darwin', 'win32', 'linux'],
+      platforms: ['darwin', 'win32', 'linux']
     },
     {
       name: '@electron-forge/maker-squirrel',
@@ -81,21 +81,21 @@ module.exports = {
           setupExe: `windows95-${package_json.version}-setup-${arch}.exe`,
           setupIcon: path.resolve(__dirname, 'assets', 'icon.ico'),
           certificateFile: process.env['WINDOWS_CODESIGN_FILE'],
-          certificatePassword: process.env['WINDOWS_CODESIGN_PASSWORD'],
-        };
-      },
+          certificatePassword: process.env['WINDOWS_CODESIGN_PASSWORD']
+        }
+      }
     },
     {
-      name: '@electron-forge/maker-deb',
+      name: '@electron-forge/maker-deb'
     },
     {
-      name: '@electron-forge/maker-rpm',
-    },
+      name: '@electron-forge/maker-rpm'
+    }
   ],
   plugins: [
     {
       name: '@electron-forge/plugin-auto-unpack-natives',
-      config: {},
-    },
-  ],
-};
+      config: {}
+    }
+  ]
+}

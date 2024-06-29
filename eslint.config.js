@@ -1,12 +1,12 @@
 // @ts-check
 
-const globals = require('globals');
-const tsPlugin = require('@typescript-eslint/eslint-plugin');
-const tsEslint = require('typescript-eslint');
+const globals = require('globals')
+const tsPlugin = require('@typescript-eslint/eslint-plugin')
+const tsEslint = require('typescript-eslint')
 
-const eslintPluginPrettier = require('eslint-plugin-prettier');
+const eslintPluginPrettier = require('eslint-plugin-prettier')
 // @ts-ignore
-const react = require('eslint-plugin-react/configs/recommended');
+const react = require('eslint-plugin-react/configs/recommended')
 
 /**
  * @type {import('eslint').Linter.FlatConfig[]}
@@ -14,7 +14,7 @@ const react = require('eslint-plugin-react/configs/recommended');
 module.exports = [
   ...tsEslint.configs.recommendedTypeChecked.map((/** @type {any} */ config) => ({
     ...config,
-    files: ['**/*.{ts,tsx}'], // We use TS config only for TS files
+    files: ['**/*.{ts,tsx}'] // We use TS config only for TS files
   })),
 
   // https://github.com/jsx-eslint/eslint-plugin-react#configuration
@@ -23,10 +23,10 @@ module.exports = [
     ignores: ['dist/**/*.js'],
     settings: {
       react: {
-        version: 'detect',
-      },
+        version: 'detect'
+      }
     },
-    ...react,
+    ...react
   },
 
   {
@@ -38,19 +38,19 @@ module.exports = [
       ecmaVersion: 2022,
       parserOptions: {
         ecmaFeatures: {
-          jsx: true,
+          jsx: true
         },
         ecmaVersion: 2022,
         project: true,
-        tsconfigRootDir: __dirname, // or import.meta.dirname for ESM
+        tsconfigRootDir: __dirname // or import.meta.dirname for ESM
       },
-      globals: { ...globals.browser, ...globals.es2024 },
+      globals: { ...globals.browser, ...globals.es2024 }
     },
 
     // This is needed in order to specify the desired behavior for its rules
     plugins: {
       '@typescript-eslint': tsPlugin,
-      prettier: eslintPluginPrettier,
+      prettier: eslintPluginPrettier
     },
 
     // After defining the plugin, you can use the rules like this
@@ -67,7 +67,7 @@ module.exports = [
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-unsafe-return': 'off',
       '@typescript-eslint/no-var-requires': 'off',
-      '@typescript-eslint/require-await': 'off',
-    },
-  },
-];
+      '@typescript-eslint/require-await': 'off'
+    }
+  }
+]
