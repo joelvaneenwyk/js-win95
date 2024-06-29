@@ -1,12 +1,13 @@
-@import "./status.less";
-@import "./emulator.less";
-@import "./info.less";
-@import "./settings.less";
-@import "./start.less";
+@import './status.less';
+@import './emulator.less';
+@import './info.less';
+@import './settings.less';
+@import './start.less';
 
 /* GENERAL RESETS */
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
@@ -96,14 +97,21 @@ section {
   .btn:focus:before,
   button.active:before,
   button:focus:before,
-  input[type=submit].active:before,
-  input[type=submit]:focus:before {
+  input[type='submit'].active:before,
+  input[type='submit']:focus:before {
     border-color: #dedede grey grey #dedede;
   }
 
   .card {
     // Fix link colors
-    .link, .link:active, .link:link, .link:visited, a, a:active, a:link, a:visited {
+    .link,
+    .link:active,
+    .link:link,
+    .link:visited,
+    a,
+    a:active,
+    a:link,
+    a:visited {
       color: #008080;
       text-decoration: underline;
       cursor: pointer;
