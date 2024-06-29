@@ -74,8 +74,8 @@ jobs:
     env:
       SUDO: ${{ matrix.os == 'windows' && '' || 'sudo' }}
 
-    name: "Build // ${{ matrix.os }} // ${{ matrix.arch }})"
-    runs-on: "${{ matrix.os }}-latest"
+    name: 'Build // ${{ matrix.os }} // ${{ matrix.arch }})'
+    runs-on: '${{ matrix.os }}-latest'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -117,7 +117,7 @@ jobs:
         id: write_file
         uses: timheuer/base64-to-file@v1
         with:
-          fileName: "win-certificate.pfx"
+          fileName: 'win-certificate.pfx'
           encodedString: ${{ secrets.WINDOWS_CODESIGN_P12 }}
 
       - name: Download disk image (ps1)

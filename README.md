@@ -138,11 +138,11 @@ If you want to tinker with the image or make a new one, check out the [QEMU docs
 
 ## Other Questions
 
-* [MS-DOS seems to brick the screen](./docs/help.md#ms-dos-seems-to-brick-the-screen)
-* [Windows 95 is stuck in a bad state](./docs/help.md#windows-95-is-stuck-in-a-bad-state)
-* [I want to install additional apps or games](./docs/help.md#i-want-to-install-additional-apps-or-games)
-* [Running in Docker](./docs/docker-instructions.md)
-* [Running in an online VM with Kubernetes and Gitpod](./docs/docker-kubernetes-gitpod.md)
+- [MS-DOS seems to brick the screen](./docs/help.md#ms-dos-seems-to-brick-the-screen)
+- [Windows 95 is stuck in a bad state](./docs/help.md#windows-95-is-stuck-in-a-bad-state)
+- [I want to install additional apps or games](./docs/help.md#i-want-to-install-additional-apps-or-games)
+- [Running in Docker](./docs/docker-instructions.md)
+- [Running in an online VM with Kubernetes and Gitpod](./docs/docker-kubernetes-gitpod.md)
 
 ## License
 

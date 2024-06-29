@@ -49,7 +49,7 @@ tasks:
       - 'test -f "{{.TASKFILE_DIR}}/.env"'
       - 'test -f "{{.TASKFILE_DIR}}/images/windows95.img"'
     cmds:
-      - cmd: "{{.TASKFILE_DIR}}/tools/download-disk.sh"
+      - cmd: '{{.TASKFILE_DIR}}/tools/download-disk.sh'
 
   download-disk-pwsh:
     deps: [dotenv-pull]

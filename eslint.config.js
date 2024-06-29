@@ -24,9 +24,9 @@ module.exports = [
     settings: {
       react: {
         version: 'detect',
-      }
+      },
     },
-    ...react
+    ...react,
   },
 
   {
@@ -38,7 +38,7 @@ module.exports = [
       ecmaVersion: 2022,
       parserOptions: {
         ecmaFeatures: {
-          jsx: true
+          jsx: true,
         },
         ecmaVersion: 2022,
         project: true,
@@ -50,7 +50,7 @@ module.exports = [
     // This is needed in order to specify the desired behavior for its rules
     plugins: {
       '@typescript-eslint': tsPlugin,
-      'prettier': eslintPluginPrettier,
+      prettier: eslintPluginPrettier,
     },
 
     // After defining the plugin, you can use the rules like this
@@ -59,15 +59,15 @@ module.exports = [
       'react/jsx-uses-vars': 'error',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': 'error',
-      "@typescript-eslint/no-floating-promises": 'off',
-      "@typescript-eslint/no-misused-promises": 'off',
-      "@typescript-eslint/no-unsafe-argument": 'off',
-      "@typescript-eslint/no-unsafe-assignment": 'off',
-      "@typescript-eslint/no-unsafe-call": 'off',
-      "@typescript-eslint/no-unsafe-member-access": 'off',
-      "@typescript-eslint/no-unsafe-return": 'off',
-      "@typescript-eslint/no-var-requires": 'off',
-      "@typescript-eslint/require-await": 'off',
-    }
+      '@typescript-eslint/no-floating-promises': 'off',
+      '@typescript-eslint/no-misused-promises': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/no-var-requires': 'off',
+      '@typescript-eslint/require-await': 'off',
+    },
   },
 ];

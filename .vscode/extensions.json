@@ -1,6 +1,6 @@
 {
-    "recommendations": [
-        "burkeholland.simple-react-snippets",
-        "msjsdiag.vscode-react-native"
-    ]
+  "recommendations": [
+    "burkeholland.simple-react-snippets",
+    "msjsdiag.vscode-react-native"
+  ]
 }
