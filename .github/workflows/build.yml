@@ -13,11 +13,12 @@ env:
   NPM: npm
   LOCKFILE: package-lock.json
   CACHE_YARN: yarn config get cacheFolder
-  SUDO: sudo
 
 jobs:
   lint:
     runs-on: ubuntu-latest
+    env:
+      SUDO: 'sudo'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -44,9 +45,11 @@ jobs:
         with:
           path: ${{ steps.node-cache-dir-path.outputs.cache-folder }}
           key: node-${{ runner.os }}-${{ hashFiles('**/${LOCKFILE}') }}
-      - run: ${{ env.NPM }} install
 
-      - name: lint
+      - name: Install packages
+        run: ${{ env.NPM }} install
+
+      - name: Lint
         run: ${{ env.NPM }} run lint
 
   build:
@@ -70,11 +73,9 @@ jobs:
         exclude:
           - os: windows
             arch: arm64
-
     env:
       SUDO: ${{ matrix.os == 'windows' && '' || 'sudo' }}
-
-    name: 'Build // ${{ matrix.os }} // ${{ matrix.arch }})'
+    name: 'Build // ${{ matrix.os }} // ${{ matrix.arch }}'
     runs-on: '${{ matrix.os }}-latest'
     steps:
       - uses: actions/checkout@v4
