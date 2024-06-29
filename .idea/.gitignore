@@ -1,0 +1,13 @@
+# Default ignored files
+shelf/
+workspace.xml
+
+# Editor-based HTTP Client requests
+httpRequests/
+
+# Additional excluded files
+deployment.xml
+GitLink.xml
+vcs.xml
+modules.xml
+inspectionProfiles/
