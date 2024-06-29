@@ -15,16 +15,22 @@ async function copyLib() {
   // Patch so that fs.read is used
   const libv86path = path.join(target, 'libv86.js')
   const libv86 = fs.readFileSync(libv86path, 'utf-8')
-  const patchedLibv86 = libv86.replace('v86util.load_file="undefined"===typeof XMLHttpRequest', 'v86util.load_file="undefined"!==typeof XMLHttpRequest')
+  const patchedLibv86 = libv86.replace(
+    'v86util.load_file="undefined"===typeof XMLHttpRequest',
+    'v86util.load_file="undefined"!==typeof XMLHttpRequest'
+  )
   fs.writeFileSync(libv86path, patchedLibv86)
 
   // Overwrite
-  const indexContents = fs.readFileSync(index, 'utf-8');
-  const replacedContents = indexContents.replace('<!-- libv86 -->', '<script src="libv86.js"></script>')
+  const indexContents = fs.readFileSync(index, 'utf-8')
+  const replacedContents = indexContents.replace(
+    '<!-- libv86 -->',
+    '<script src="libv86.js"></script>'
+  )
   fs.writeFileSync(index, replacedContents)
 }
 
-async function compileParcel (options = {}) {
+async function compileParcel(options = {}) {
   const entryFiles = [
     path.join(__dirname, '../static/index.html'),
     path.join(__dirname, '../src/main/main.ts')
@@ -60,10 +66,8 @@ async function compileParcel (options = {}) {
   // Use the events if you're using watch mode as this promise will only trigger once and not for every rebuild
   await bundler.bundle()
 
-  await copyLib();
+  await copyLib()
 }
-
-
 
 module.exports = {
   compileParcel

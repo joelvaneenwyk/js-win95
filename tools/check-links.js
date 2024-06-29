@@ -2,7 +2,8 @@ const fs = require('fs/promises')
 const path = require('path')
 const fetch = require('node-fetch')
 
-const LINK_RGX = /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/g;
+const LINK_RGX =
+  /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/g
 
 async function main() {
   const readmePath = path.join(__dirname, '../README.md')
@@ -18,11 +19,13 @@ async function main() {
         // If we're inside GitHub's release asset server, we just ran into AWS not allowing
         // HEAD requests, which is different from a 404.
         if (!response.url.startsWith('https://github-production-release-asset')) {
-          throw new Error (`HTTP Error Response: ${response.status} ${response.statusText}`)
+          throw new Error(
+            `HTTP Error Response: ${response.status} ${response.statusText}`
+          )
         }
       }
 
-      console.log(`✅ ${link}`);
+      console.log(`✅ ${link}`)
     } catch (error) {
       failed = true
 
@@ -31,7 +34,7 @@ async function main() {
   }
 
   if (failed) {
-    process.exit(-1);
+    process.exit(-1)
   }
 }
 

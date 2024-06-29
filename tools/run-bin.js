@@ -3,7 +3,7 @@
 const childProcess = require('child_process')
 const path = require('path')
 
-async function run (name, bin, args = []) {
+async function run(name, bin, args = []) {
   await new Promise((resolve, reject) => {
     console.info(`Running ${name}`)
 
@@ -23,7 +23,7 @@ async function run (name, bin, args = []) {
       reject(new Error(`${name} failed`))
     })
   })
-};
+}
 
 module.exports = {
   run

@@ -2,9 +2,9 @@
 
 const { run } = require('./run-bin')
 
-async function compileTypeScript () {
+async function compileTypeScript() {
   await run('TypeScript', 'tsc', ['-p', 'tsconfig.json'])
-};
+}
 
 module.exports = {
   compileTypeScript

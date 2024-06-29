@@ -1,6 +1,6 @@
 const { compileParcel } = require('./parcel-build')
 
-async function watchParcel () {
+async function watchParcel() {
   return compileParcel({ watch: true })
 }
 
