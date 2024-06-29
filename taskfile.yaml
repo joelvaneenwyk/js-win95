@@ -1,0 +1,30 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - task: build
+
+  build:
+    deps: [install]
+    cmds:
+      - npm install
+      - npm run lint
+      - npm run build
+
+  install:
+    cmds:
+      - task: install-dependencies-ubuntu
+
+  install-dependencies-ubuntu:
+    platforms: [linux]
+    preconditions:
+      - apt-get --version
+      - sudo --version
+    status:
+      - rpm --version
+    cmds:
+      - cmd: sudo apt-get update
+      - cmd: sudo apt-get install -y rpm
