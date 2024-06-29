@@ -4,5 +4,5 @@
  * @returns {boolean}
  */
 export function isDevMode() {
-  return !!process.defaultApp;
+  return !!process.defaultApp
 }

@@ -1,21 +1,21 @@
-import * as fs from "fs-extra";
-import * as React from "react";
+import * as fs from 'fs-extra'
+import * as React from 'react'
 
-import { getStatePath } from "./utils/get-state-path";
+import { getStatePath } from './utils/get-state-path'
 
 // CD is currently not working, so.. let's return nothing.
-const DisableCdrom = true;
+const DisableCdrom = true
 
 interface CardSettingsProps {
-  bootFromScratch: () => void;
-  setFloppy: (file: File) => void;
-  setCdrom: (cdrom: File) => void;
-  floppy?: File;
-  cdrom?: File;
+  bootFromScratch: () => void
+  setFloppy: (file: File) => void
+  setCdrom: (cdrom: File) => void
+  floppy?: File
+  cdrom?: File
 }
 
 interface CardSettingsState {
-  isStateReset: boolean;
+  isStateReset: boolean
 }
 
 export class CardSettings extends React.Component<
@@ -23,15 +23,15 @@ export class CardSettings extends React.Component<
   CardSettingsState
 > {
   constructor(props: CardSettingsProps) {
-    super(props);
+    super(props)
 
-    this.onChangeFloppy = this.onChangeFloppy.bind(this);
-    this.onChangeCdrom = this.onChangeCdrom.bind(this);
-    this.onResetState = this.onResetState.bind(this);
+    this.onChangeFloppy = this.onChangeFloppy.bind(this)
+    this.onChangeCdrom = this.onChangeCdrom.bind(this)
+    this.onResetState = this.onResetState.bind(this)
 
     this.state = {
-      isStateReset: false,
-    };
+      isStateReset: false
+    }
   }
 
   public render() {
@@ -53,11 +53,11 @@ export class CardSettings extends React.Component<
           </div>
         </div>
       </section>
-    );
+    )
   }
 
   public renderCdrom() {
-    const { cdrom } = this.props;
+    const { cdrom } = this.props
 
     return DisableCdrom ? null : ( // Return 'null' if CD-ROM functionality is disabled
       <fieldset>
@@ -69,7 +69,7 @@ export class CardSettings extends React.Component<
           id="cdrom-input"
           type="file"
           onChange={(event) => this.onChangeCdrom(event)}
-          style={{ display: "none" }}
+          style={{ display: 'none' }}
         />
         <p>
           windows95 comes with a virtual CD drive. It can mount images in the
@@ -80,17 +80,19 @@ export class CardSettings extends React.Component<
         </p>
         <button
           className="btn"
-          onClick={() => document.querySelector<HTMLElement>("#cdrom-input")?.click()}
+          onClick={() =>
+            document.querySelector<HTMLElement>('#cdrom-input')?.click()
+          }
         >
           <img src="../../static/select-cdrom.png" />
           <span>Mount CD</span>
         </button>
       </fieldset>
-    );
+    )
   }
 
   public renderFloppy() {
-    const { floppy } = this.props;
+    const { floppy } = this.props
 
     return (
       <fieldset>
@@ -102,7 +104,7 @@ export class CardSettings extends React.Component<
           id="floppy-input"
           type="file"
           onChange={(event) => this.onChangeFloppy(event)}
-          style={{ display: "none" }}
+          style={{ display: 'none' }}
         />
         <p>
           windows95 comes with a virtual floppy drive. It can mount floppy disk
@@ -123,18 +125,20 @@ export class CardSettings extends React.Component<
         </p>
         <button
           className="btn"
-          onClick={() => document.querySelector<HTMLElement>("#floppy-input")?.click()}
+          onClick={() =>
+            document.querySelector<HTMLElement>('#floppy-input')?.click()
+          }
         >
           <img src="../../static/select-floppy.png" />
           <span>Mount floppy disk</span>
         </button>
       </fieldset>
-    );
+    )
   }
 
   public renderState() {
-    const { isStateReset } = this.state;
-    const { bootFromScratch } = this.props;
+    const { isStateReset } = this.state
+    const { bootFromScratch } = this.props
 
     return (
       <fieldset>
@@ -152,10 +156,10 @@ export class CardSettings extends React.Component<
             className="btn"
             onClick={() => this.onResetState()}
             disabled={isStateReset}
-            style={{ marginRight: "5px" }}
+            style={{ marginRight: '5px' }}
           >
             <img src="../../static/reset-state.png" />
-            {isStateReset ? "State reset" : "Reset state"}
+            {isStateReset ? 'State reset' : 'Reset state'}
           </button>
           <button className="btn" onClick={bootFromScratch}>
             <img src="../../static/boot-fresh.png" />
@@ -163,7 +167,7 @@ export class CardSettings extends React.Component<
           </button>
         </div>
       </fieldset>
-    );
+    )
   }
 
   /**
@@ -175,12 +179,12 @@ export class CardSettings extends React.Component<
     const floppyFile =
       event.target.files && event.target.files.length > 0
         ? event.target.files[0]
-        : null;
+        : null
 
     if (floppyFile) {
-      this.props.setFloppy(floppyFile);
+      this.props.setFloppy(floppyFile)
     } else {
-      console.log(`Floppy: Input changed but no file selected`);
+      console.log(`Floppy: Input changed but no file selected`)
     }
   }
 
@@ -193,12 +197,12 @@ export class CardSettings extends React.Component<
     const CdromFile =
       event.target.files && event.target.files.length > 0
         ? event.target.files[0]
-        : null;
+        : null
 
     if (CdromFile) {
-      this.props.setCdrom(CdromFile);
+      this.props.setCdrom(CdromFile)
     } else {
-      console.log(`Cdrom: Input changed but no file selected`);
+      console.log(`Cdrom: Input changed but no file selected`)
     }
   }
 
@@ -206,12 +210,12 @@ export class CardSettings extends React.Component<
    * Handle the state reset
    */
   private async onResetState() {
-    const statePath = await getStatePath();
+    const statePath = await getStatePath()
 
     if (fs.existsSync(statePath)) {
-      await fs.remove(statePath);
+      await fs.remove(statePath)
     }
 
-    this.setState({ isStateReset: true });
+    this.setState({ isStateReset: true })
   }
 }

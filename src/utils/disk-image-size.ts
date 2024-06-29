@@ -1,6 +1,6 @@
-import * as fs from "fs-extra";
+import * as fs from 'fs-extra'
 
-import { CONSTANTS } from "../constants";
+import { CONSTANTS } from '../constants'
 
 /**
  * Get the size of the disk image
@@ -9,14 +9,14 @@ import { CONSTANTS } from "../constants";
  */
 export async function getDiskImageSize(path: string) {
   try {
-    const stats = await fs.stat(path);
+    const stats = await fs.stat(path)
 
     if (stats) {
-      return stats.size;
+      return stats.size
     }
   } catch (error) {
-    console.warn(`Could not determine image size`, error);
+    console.warn(`Could not determine image size`, error)
   }
 
-  return CONSTANTS.IMAGE_DEFAULT_SIZE;
+  return CONSTANTS.IMAGE_DEFAULT_SIZE
 }

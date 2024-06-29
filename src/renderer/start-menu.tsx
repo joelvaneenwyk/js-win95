@@ -1,14 +1,14 @@
-import * as React from "react";
+import * as React from 'react'
 
 export interface StartMenuProps {
-  navigate: (to: string) => void;
+  navigate: (to: string) => void
 }
 
 export class StartMenu extends React.Component<StartMenuProps, object> {
   constructor(props: StartMenuProps) {
-    super(props);
+    super(props)
 
-    this.navigate = this.navigate.bind(this);
+    this.navigate = this.navigate.bind(this)
   }
 
   public render() {
@@ -44,10 +44,10 @@ export class StartMenu extends React.Component<StartMenuProps, object> {
           </a>
         </div>
       </nav>
-    );
+    )
   }
 
   public navigate(event: React.SyntheticEvent<HTMLAnchorElement>) {
-    this.props.navigate(event.currentTarget.id);
+    this.props.navigate(event.currentTarget.id)
   }
 }

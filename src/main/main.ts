@@ -1,26 +1,26 @@
-import { app } from "electron";
+import { app } from 'electron'
 
-import { isDevMode } from "../utils/devmode";
-import { setupAboutPanel } from "./about-panel";
-import { shouldQuit } from "./squirrel";
-import { setupUpdates } from "./update";
-import { getOrCreateWindow } from "./windows";
-import { setupMenu } from "./menu";
-import { setupIpcListeners } from "./ipc";
+import { isDevMode } from '../utils/devmode'
+import { setupAboutPanel } from './about-panel'
+import { shouldQuit } from './squirrel'
+import { setupUpdates } from './update'
+import { getOrCreateWindow } from './windows'
+import { setupMenu } from './menu'
+import { setupIpcListeners } from './ipc'
 
 /**
  * Handle the app's "ready" event. This is essentially
  * the method that takes care of booting the application.
  */
 export async function onReady() {
-  if (!isDevMode()) process.env.NODE_ENV = "production";
+  if (!isDevMode()) process.env.NODE_ENV = 'production'
 
-  setupIpcListeners();
-  getOrCreateWindow();
-  setupAboutPanel();
+  setupIpcListeners()
+  getOrCreateWindow()
+  setupAboutPanel()
   // @joelvaneenwyk #review - Validate correctness
-  await setupMenu();
-  setupUpdates();
+  await setupMenu()
+  setupUpdates()
 }
 
 /**
@@ -29,7 +29,7 @@ export async function onReady() {
  * @export
  */
 export function onBeforeQuit() {
-  (global as any).isQuitting = true;
+  ;(global as any).isQuitting = true
 }
 
 /**
@@ -39,8 +39,8 @@ export function onBeforeQuit() {
 export function onWindowsAllClosed() {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== "darwin") {
-    app.quit();
+  if (process.platform !== 'darwin') {
+    app.quit()
   }
 }
 
@@ -54,17 +54,17 @@ export function main() {
   // Handle creating/removing shortcuts on Windows when
   // installing/uninstalling.
   if (shouldQuit()) {
-    app.quit();
-    return;
+    app.quit()
+    return
   }
 
   // Set the app's name
-  app.setName("windows95");
+  app.setName('windows95')
 
   // Launch
-  app.on("ready", onReady);
-  app.on("before-quit", onBeforeQuit);
-  app.on("window-all-closed", onWindowsAllClosed);
+  app.on('ready', onReady)
+  app.on('before-quit', onBeforeQuit)
+  app.on('window-all-closed', onWindowsAllClosed)
 }
 
-main();
+main()

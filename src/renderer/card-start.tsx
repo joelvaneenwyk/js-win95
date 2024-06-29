@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from 'react'
 
 export interface CardStartProps {
-  startEmulator: () => void;
+  startEmulator: () => void
 }
 
 export class CardStart extends React.Component<CardStartProps, object> {
@@ -14,6 +14,6 @@ export class CardStart extends React.Component<CardStartProps, object> {
         </button>
         <small>Hit ESC to lock or unlock your mouse</small>
       </section>
-    );
+    )
   }
 }

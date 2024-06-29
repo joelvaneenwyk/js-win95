@@ -1,9 +1,9 @@
-import { BrowserWindow, shell } from "electron";
+import { BrowserWindow, shell } from 'electron'
 
-let mainWindow: BrowserWindow | null = null;
+let mainWindow: BrowserWindow | null = null
 
 export function getOrCreateWindow(): BrowserWindow {
-  if (mainWindow) return mainWindow;
+  if (mainWindow) return mainWindow
 
   // Create the browser window.
   mainWindow = new BrowserWindow({
@@ -14,31 +14,31 @@ export function getOrCreateWindow(): BrowserWindow {
       nodeIntegration: true,
       sandbox: false,
       webviewTag: false,
-      contextIsolation: false,
-    },
-  });
+      contextIsolation: false
+    }
+  })
 
   // mainWindow.webContents.toggleDevTools();
-  mainWindow.loadFile("./dist/static/index.html");
+  mainWindow.loadFile('./dist/static/index.html')
 
-  mainWindow.webContents.on("will-navigate", (event, url) =>
+  mainWindow.webContents.on('will-navigate', (event, url) =>
     handleNavigation(event, url)
-  );
+  )
   // @joelvaneenwyk #review - Fix
   //mainWindow.webContents.on("new-window", (event, url) =>
   //  handleNavigation(event, url)
   //);
 
-  mainWindow.on("closed", () => {
-    mainWindow = null;
-  });
+  mainWindow.on('closed', () => {
+    mainWindow = null
+  })
 
-  return mainWindow;
+  return mainWindow
 }
 
 function handleNavigation(event: Electron.Event, url: string) {
-  if (url.startsWith("http")) {
-    event.preventDefault();
-    shell.openExternal(url);
+  if (url.startsWith('http')) {
+    event.preventDefault()
+    shell.openExternal(url)
   }
 }

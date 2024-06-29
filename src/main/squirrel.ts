@@ -1,3 +1,3 @@
 export function shouldQuit() {
-  return require("electron-squirrel-startup");
+  return require('electron-squirrel-startup')
 }
