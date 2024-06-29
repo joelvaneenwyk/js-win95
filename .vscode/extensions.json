@@ -1,6 +1,9 @@
 {
   "recommendations": [
     "burkeholland.simple-react-snippets",
-    "msjsdiag.vscode-react-native"
+    "msjsdiag.vscode-react-native",
+    "jeff-hykin.better-dockerfile-syntax",
+    "foxundermoon.shell-format",
+    "ms-azuretools.vscode-docker"
   ]
 }
