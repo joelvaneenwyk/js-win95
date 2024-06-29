@@ -4,14 +4,17 @@
  *
  * @class App
  */
+import { createRoot } from "react-dom/client";
+
+// @ts-expect-error - This is implicitly used in `App.setup` below.
+import { React } from "react";
+
 export class App {
   /**
    * Initial setup call, loading Monaco and kicking off the React
    * render process.
    */
   public async setup(): Promise<void | Element> {
-    const React = await import("react");
-    const { render } = await import("react-dom");
     const { Emulator } = await import("./emulator");
 
     const className = `${process.platform}`;
@@ -21,9 +24,9 @@ export class App {
       </div>
     );
 
-    const rendered = render(app, document.getElementById("app"));
-
-    return rendered;
+    const container = document.getElementById("app");
+    const root = createRoot(container!);
+    return root.render(app);
   }
 }
 
