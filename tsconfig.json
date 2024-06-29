@@ -16,16 +16,13 @@
     "noUnusedParameters": true,
     "importHelpers": true,
     "noEmitHelpers": false,
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
     "pretty": true,
-    "target": "es2017",
-    "jsx": "react",
-    "typeRoots": ["./node_modules/@types"],
+    "target": "ES2020",
+    "jsx": "react-jsx",
     "baseUrl": "."
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "tools/*.js"],
-  "exclude": ["node_modules"],
   "formatCodeOptions": {
     "indentSize": 2,
     "tabSize": 2

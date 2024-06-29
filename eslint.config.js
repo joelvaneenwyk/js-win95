@@ -1,24 +1,18 @@
 // @ts-check
 
-//import globals from "globals";
-//import eslint  from "@eslint/js";
-//import tseslint from "typescript-eslint";
-//import pluginReactConfig from "eslint-plugin-react/configs/recommended.js";
-//import { fixupConfigRules } from "@eslint/compat";
-//import eslintConfigPrettier from "eslint-config-prettier";
-
 const globals = require('globals');
 const tsPlugin = require('@typescript-eslint/eslint-plugin');
 const tsEslint = require('typescript-eslint');
 
 const eslintPluginPrettier = require('eslint-plugin-prettier');
+// @ts-ignore
 const react = require('eslint-plugin-react/configs/recommended');
 
 /**
  * @type {import('eslint').Linter.FlatConfig[]}
  */
 module.exports = [
-  ...tsEslint.configs.recommendedTypeChecked.map((config) => ({
+  ...tsEslint.configs.recommendedTypeChecked.map((/** @type {any} */ config) => ({
     ...config,
     files: ['**/*.{ts,tsx}'], // We use TS config only for TS files
   })),
@@ -77,72 +71,3 @@ module.exports = [
     }
   },
 ];
-
-//export default tseslint.config(
-//    eslint.configs.recommended,
-//    ...tseslint.configs.recommendedTypeChecked,
-//    //{
-//    //    files: [
-//    //        "**/*.{js,cjs}"
-//    //    ],
-//    //    languageOptions: {
-//    //        //parserOptions: {
-//    //        //    project: true,
-//    //        //    tsconfigRootDir: import.meta.dirname,
-//    //        //},
-//    //        //ecmaVersion: 2022,
-//    //        //sourceType: "commonjs",
-//    //        globals: {
-//    //            ...globals.browser,
-//    //            ...globals.node
-//    //        }
-//    //    },
-//    //},
-//    //{
-//    //    files: [
-//    //        "src/renderer/lib/*.js"
-//    //    ],
-//    //    languageOptions: {
-//    //        ecmaVersion: 2022,
-//    //        sourceType: "commonjs",
-//    //        globals: {
-//    //            ...globals.browser,
-//    //            ...globals.node
-//    //        }
-//    //    },
-//    //    rules: {
-//    //        "no-undef": "off",
-//    //        "no-empty": "off",
-//    //        "no-debugger": "off",
-//    //        "no-cond-assign": "off",
-//    //        "no-unused-vars": "off"
-//    //    }
-//    //},
-//    //{
-//    //    files: [
-//    //        "**/*.mjs"
-//    //    ],
-//    //    languageOptions: {
-//    //        ecmaVersion: 2022,
-//    //        sourceType: "module",
-//    //        globals: {
-//    //            ...globals.browser,
-//    //            ...globals.node
-//    //        }
-//    //    }
-//    //},
-//    //tseslint.configs.recommended,
-//    //{
-//    //    files: ["**/*.ts", "**/*.tsx"],
-//    //    parser: "@typescript-eslint/parser",
-//    //    languageOptions: {
-//    //        ecmaVersion: 2022,
-//    //        sourceType: "module",
-//    //        globals: {
-//    //            ...globals.browser,
-//    //            ...globals.node
-//    //        }
-//    //    },
-//    //},
-//    //...fixupConfigRules(pluginReactConfig)
-//);

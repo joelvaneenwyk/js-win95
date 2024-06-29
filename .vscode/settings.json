@@ -3,13 +3,13 @@
     "editor.codeActionsOnSave": {
       "source.addMissingImports.ts": "explicit",
       "source.convertImportFormat": "never",
-      "source.fixAll": "explicit",
+      "source.fixAll": "never",
       "source.fixAll.eslint": "explicit",
-      "source.fixAll.ts": "explicit",
-      "source.organizeImports": "explicit",
+      "source.fixAll.ts": "never",
+      "source.organizeImports": "never",
       "source.removeUnused.ts": "never",
       "source.removeUnusedImports": "never",
-      "source.sortImports": "explicit",
+      "source.sortImports": "never",
       "source.unusedImports": "never"
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -21,10 +21,23 @@
   "cmake.configureOnEdit": false,
   "cmake.configureOnOpen": false,
   "cmake.enableAutomaticKitScan": false,
+  "editor.codeActionsOnSave": {
+    "source.addMissingImports.ts": "never",
+    "source.convertImportFormat": "never",
+    "source.fixAll": "never",
+    "source.fixAll.eslint": "never",
+    "source.fixAll.pylance": "never",
+    "source.fixAll.ts": "never",
+    "source.organizeImports": "never",
+    "source.removeUnused.ts": "never",
+    "source.removeUnusedImports": "never",
+    "source.sortImports": "never",
+    "source.unusedImports": "never"
+  },
   "eslint.codeActionsOnSave.mode": "all",
   "eslint.debug": true,
   "eslint.enable": true,
-  "eslint.format.enable": true,
+  "eslint.format.enable": false,
   "eslint.lintTask.enable": true,
   "eslint.lintTask.options": ".",
   "eslint.useFlatConfig": true,
@@ -38,9 +51,16 @@
   "typescript.check.npmIsInstalled": true,
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.format.enable": false,
-  "typescript.implementationsCodeLens.enabled": true,
+  "typescript.implementationsCodeLens.enabled": false,
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "node_modules",
+    "bower_components",
+    "jspm_packages",
+    "dist"
+  ],
   "typescript.reportStyleChecksAsWarnings": false,
   "typescript.surveys.enabled": false,
   "typescript.tsc.autoDetect": "build",
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.tsserver.web.projectWideIntellisense.enabled": true
 }
