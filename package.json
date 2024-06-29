@@ -63,7 +63,7 @@
     "lint:cli": "eslint .",
     "lint:fix": "npm run lint:cli -- --fix",
     "format": "npm run lint:fix && npm run format:write",
-    "format:cli": "prettier \"src/**/*.{mjs,cjs,js,ts,tsx}\" --trailing-comma none",
+    "format:cli": "prettier . --trailing-comma none --no-semi",
     "format:write": "npm run format:cli -- --write --log-level debug",
     "format:check": "npm run format:cli -- --check",
     "tsc": "tsc -p tsconfig.json --noEmit",
