@@ -13,7 +13,7 @@ env:
   NPM: npm
   LOCKFILE: package-lock.json
   CACHE_YARN: yarn config get cacheFolder
-  CSC_IDENTITY_AUTO_DISCOVERY: false
+  SUDO: sudo
 
 jobs:
   lint:
@@ -29,17 +29,18 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - run: npm install -g corepack@latest yarn@latest
-      - run: corepack enable
-      - run: corepack install
+      - run: ${{ env.SUDO }} npm install -g corepack@latest
+      - run: ${{ env.SUDO }} corepack enable
+      - run: ${{ env.SUDO }} corepack install
 
       - name: Get cache directory path
         id: node-cache-dir-path
+        shell: bash
         run: |
           echo "cache-folder=$(eval "${CACHE_NPM:-npm config get cache}")" >> "$GITHUB_OUTPUT"
 
       - uses: actions/cache@v4
-        id: node-cache # use this to check for `cache-hit` (`steps.node-cache.outputs.cache-hit != 'true'`)
+        id: node-cache
         with:
           path: ${{ steps.node-cache-dir-path.outputs.cache-folder }}
           key: node-${{ runner.os }}-${{ hashFiles('**/${LOCKFILE}') }}
@@ -70,6 +71,9 @@ jobs:
         - os: windows
           arch: arm64
 
+    env:
+      SUDO: ${{ matrix.os == 'windows' && '' || 'sudo' }}
+
     name: "Build // ${{ matrix.os }} // ${{ matrix.arch }})"
     runs-on: "${{ matrix.os }}-latest"
     steps:
@@ -83,17 +87,18 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - run: npm install -g corepack@latest
-      - run: corepack enable
-      - run: corepack install
+      - run: ${{ env.SUDO }} npm install -g corepack@latest
+      - run: ${{ env.SUDO }} corepack enable
+      - run: ${{ env.SUDO }} corepack install
 
       - name: Get cache directory path
         id: node-cache-dir-path
+        shell: bash
         run: |
           echo "cache-folder=$(eval "${CACHE_NPM:-npm config get cache}")" >> "$GITHUB_OUTPUT"
 
       - uses: actions/cache@v4
-        id: node-cache # use this to check for `cache-hit` (`steps.node-cache.outputs.cache-hit != 'true'`)
+        id: node-cache
         with:
           path: ${{ steps.node-cache-dir-path.outputs.cache-folder }}
           key: node-${{ runner.os }}-${{ hashFiles('**/${LOCKFILE}') }}
