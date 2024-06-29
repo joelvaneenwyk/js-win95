@@ -95,7 +95,6 @@ finally {
         Remove-Item "$images_path/__MACOSX" -Recurse -ErrorAction Ignore
         Remove-Item "$images_target_archive"
         Write-Host "Removed existing archive: '$images_target_archive'"
-        Tree ./ /F > "$emulator_root_path/images.txt"
     } else {
         Write-Error "Failed to download disk image from $disk_url"
         exit 22
