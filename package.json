@@ -2,6 +2,7 @@
   "name": "windows95",
   "productName": "windows95",
   "version": "3.1.2",
+  "main": "dist/index.html",
   "source": "static/index.html",
   "author": "Felix Rieseberg, felix@felixrieseberg.com",
   "homepage": "https://windows.com",

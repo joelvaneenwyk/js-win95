@@ -3,7 +3,7 @@
 const path = require('path')
 const fs = require('fs-extra')
 
-let useParcelV2 = true
+let useParcelV2 = false
 
 async function copyLib() {
   const target = path.join(__dirname, '../dist/static')
@@ -36,47 +36,29 @@ async function copyLib() {
  * @param {import('@parcel/types').InitialParcelOptions} options
  */
 async function _compileParcel(options = {}) {
+  const rootDir = path.resolve(path.join(__dirname, '../'))
   const entryFiles = [
-    path.join(__dirname, '../static/index.html'),
-    path.join(__dirname, '../src/main/main.ts')
+    path.join(rootDir, 'static', 'index.html')
   ]
+  const distDir = path.join(rootDir, 'dist');
+  const publicDir = path.join(rootDir)
 
-  const Parcel = require('@parcel/core').Parcel
+  const Parcel = require('@parcel/core').default
   const bundler = new Parcel({
     config: '@parcel/config-default',
     defaultConfig: '@parcel/config-default',
     entries: entryFiles,
-    hmrOptions: {
-      host: 'localhost',
-      port: 0
-    },
-    //transformers: {
-    //  "*.{ts,tsx}": ["@parcel/transformer-typescript-tsc"]
-    //},
-    logLevel: 'verbose',
+    logLevel: 'info',
     mode: 'development',
-    shouldAutoInstall: true,
-    shouldTrace: true,
-    shouldBuildLazily: true,
     defaultTargetOptions: {
       shouldOptimize: false,
       sourceMaps: true,
-      distDir: './dist',
-      publicUrl: '../'
+      distDir: distDir,
+      publicUrl: publicDir,
+      outputFormat: 'global',
+      isLibrary: false,
+      shouldScopeHoist: true
     },
-    detailedReport: {
-      assetsPerBundle: 5
-    },
-    lazyExcludes: [
-      '**/.git/**',
-      '**/.hg/**',
-      '**/.svn/**',
-      '**/build/**',
-      '**/coverage/**',
-      '**/node_modules/**',
-      '**/out/**',
-      '**/website/**'
-    ],
     ...options
   })
 
