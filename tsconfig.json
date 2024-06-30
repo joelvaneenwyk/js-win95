@@ -17,7 +17,7 @@
     "importHelpers": true,
     "noEmitHelpers": false,
     "isolatedModules": true,
-    "jsxImportSource": "preact",
+    "jsxImportSource": "react",
     "module": "CommonJS",
     "moduleResolution": "Node",
     "pretty": true,
