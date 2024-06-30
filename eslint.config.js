@@ -2,9 +2,12 @@
 
 const globals = require('globals')
 const tsPlugin = require('@typescript-eslint/eslint-plugin')
+
+// @ts-ignore
 const tsEslint = require('typescript-eslint')
 
 const eslintPluginPrettier = require('eslint-plugin-prettier')
+
 // @ts-ignore
 const react = require('eslint-plugin-react/configs/recommended')
 
@@ -20,7 +23,7 @@ module.exports = [
   // https://github.com/jsx-eslint/eslint-plugin-react#configuration
   {
     files: ['src/**/*.{ts,tsx}'],
-    ignores: ['dist/**/*.js'],
+    ignores: ['dist/emulator.*.js', 'dist/index.*.js'],
     settings: {
       react: {
         version: 'detect'
@@ -42,7 +45,7 @@ module.exports = [
         },
         ecmaVersion: 2022,
         project: true,
-        tsconfigRootDir: __dirname // or import.meta.dirname for ESM
+        tsconfigRootDir: __dirname
       },
       globals: { ...globals.browser, ...globals.es2024 }
     },

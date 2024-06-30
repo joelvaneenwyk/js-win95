@@ -1,6 +1,10 @@
-const fs = require('fs/promises')
+/**
+ * This script checks all links in the README.md file to ensure they are valid.
+ */
+
+const fs = require('fs-extra')
 const path = require('path')
-const fetch = require('node-fetch')
+const fetch = require('node-fetch-commonjs')
 
 const LINK_RGX =
   /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/g

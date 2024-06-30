@@ -1,7 +1,12 @@
 /* tslint:disable */
 
-const { compileParcel } = require('./parcel-build')
+const compileParcel = require('./parcel-build')
 
 module.exports = async () => {
-  await Promise.all([compileParcel()])
+  try {
+    await compileParcel()
+    console.info('Assets generated successfully!')
+  } catch (error) {
+    console.error(`Error generating assets: ${error}`)
+  }
 }

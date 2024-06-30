@@ -1,0 +1,11 @@
+version: '0.2'
+ignorePaths: []
+dictionaryDefinitions:
+  - name: windows-terms
+    path: ./.vscode/cspell-windows-terms.dict
+    addWords: true
+dictionaries:
+  - windows-terms
+words: []
+ignoreWords: []
+import: []

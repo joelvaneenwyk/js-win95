@@ -32,9 +32,10 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
+          check-latest: true
 
       - name: Install packages
-        run: npm ci
+        run: npm install
 
       - name: Lint
         run: npm run lint
@@ -78,11 +79,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
+          check-latest: true
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
 
       - name: Install packages
-        run: npm ci
+        run: npm install
 
       - name: Set MacOS signing certs
         if: matrix.os == 'macOS'
@@ -124,8 +126,8 @@ jobs:
           APPLE_ID: ${{ secrets.APPLE_ID || '' }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD || '' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #    WINDOWS_CODESIGN_FILE: ${{ steps.write_file.outputs.filePath || '' }}
-      #    WINDOWS_CODESIGN_PASSWORD: ${{ secrets.WINDOWS_CODESIGN_PASSWORD || '' }}
+          WINDOWS_CODESIGN_FILE: ${{ steps.write_file.outputs.filePath || '' }}
+          WINDOWS_CODESIGN_PASSWORD: ${{ secrets.WINDOWS_CODESIGN_PASSWORD || '' }}
 
       - name: Release
         uses: softprops/action-gh-release@v2

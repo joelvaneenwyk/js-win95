@@ -1,10 +1,8 @@
-/* tslint:disable */
-
-const Bundler = require('parcel-bundler')
-const path = require('path')
-const fs = require('fs-extra')
+// @ts-check
 
 async function copyLib() {
+  const path = require('path')
+  const fs = require('fs-extra')
   const target = path.join(__dirname, '../dist/static')
   const lib = path.join(__dirname, '../src/renderer/lib')
   const index = path.join(target, 'index.html')
@@ -30,47 +28,77 @@ async function copyLib() {
   fs.writeFileSync(index, replacedContents)
 }
 
-async function compileParcel(options = {}) {
-  const entryFiles = [
-    path.join(__dirname, '../static/index.html'),
-    path.join(__dirname, '../src/main/main.ts')
-  ]
+/**
+ * Run Parcel to compile and generate assets which are then passed to Electron Forge and processed further.
+ *
+ * @param {boolean} watch
+ */
+async function _compileParcel(watch = false) {
+  const path = require('path')
+  const rootDir = path.resolve(path.join(__dirname, '../'))
+  const entryFiles = [path.join(rootDir, 'static', 'index.html')]
 
-  const bundlerOptions = {
-    outDir: './dist', // The out directory to put the build files in, defaults to dist
-    outFile: undefined, // The name of the outputFile
-    publicUrl: '../', // The url to server on, defaults to dist
-    watch: false, // whether to watch the files and rebuild them on change, defaults to process.env.NODE_ENV !== 'production'
-    cache: false, // Enabled or disables caching, defaults to true
-    cacheDir: '.cache', // The directory cache gets put in, defaults to .cache
-    contentHash: false, // Disable content hash from being included on the filename
-    minify: false, // Minify files, enabled if process.env.NODE_ENV === 'production'
-    scopeHoist: false, // turn on experimental scope hoisting/tree shaking flag, for smaller production bundles
-    target: 'electron', // browser/node/electron, defaults to browser
-    // https: { // Define a custom {key, cert} pair, use true to generate one or false to use http
-    //   cert: './ssl/c.crt', // path to custom certificate
-    //   key: './ssl/k.key' // path to custom key
-    // },
-    logLevel: 3, // 3 = log everything, 2 = log warnings & errors, 1 = log errors
-    hmr: false, // Enable or disable HMR while watching
-    hmrPort: 0, // The port the HMR socket runs on, defaults to a random free port (0 in node.js resolves to a random free port)
-    sourceMaps: true, // Enable or disable sourcemaps, defaults to enabled (minified builds currently always create sourcemaps)
-    hmrHostname: '', // A hostname for hot module reload, default to ''
-    detailedReport: false, // Prints a detailed report of the bundles, assets, filesizes and times, defaults to false, reports are only printed if watch is disabled,
-    ...options
-  }
+  const distDir = path.join(rootDir, 'dist')
+  const publicDir = path.join(rootDir)
 
-  const bundler = new Bundler(entryFiles, bundlerOptions)
+  const Parcel = require('@parcel/core').default
+  const bundler = new Parcel({
+    config: '@parcel/config-default',
+    defaultConfig: '@parcel/config-default',
+    entries: entryFiles,
+    logLevel: 'verbose',
+    mode: 'development',
+    defaultTargetOptions: {
+      shouldOptimize: false,
+      sourceMaps: true,
+      distDir: distDir,
+      publicUrl: publicDir,
+      outputFormat: 'esmodule',
+      isLibrary: false,
+      shouldScopeHoist: false,
+      engines: {
+        browsers: ['> 0.25%, not dead'],
+        electron: '31.1.0'
+      }
+    }
+  })
 
   // Run the bundler, this returns the main bundle
   // Use the events if you're using watch mode as this promise will only trigger once and not for every rebuild
-  await bundler.bundle()
-
-  await copyLib()
+  try {
+    await copyLib()
+  } finally {
+    if (watch) {
+      return bundler.watch((err, buildEvent) => {
+        if (err) {
+          console.error(
+            `[windows95] Parcel build event '${buildEvent}' failed to complete. ${err}`
+          )
+        } else {
+          console.info(`[windows95] Parcel build event '${buildEvent}' completed.`)
+        }
+      })
+    }
+    return bundler.run()
+  }
 }
 
-module.exports = {
-  compileParcel
-}
+/**
+ *
+ * @param {boolean} watch
+ * @returns
+ */
+module.exports = async (watch = false) => {
+  let result
 
-if (require.main === module) compileParcel()
+  try {
+    result = await _compileParcel(watch)
+    console.info(`[windows95] Compile step for Parcel completed.`)
+  } catch (reason) {
+    const issue = `[windows95] Error caught running Parcel. ${reason}`
+    console.error(issue)
+    throw Error(issue)
+  }
+
+  return result
+}

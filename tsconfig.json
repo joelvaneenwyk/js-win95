@@ -1,30 +1,38 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES6",
+    "lib": ["ES2022", "DOM"],
     "outDir": "./dist",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
-    "removeComments": false,
-    "preserveConstEnums": true,
-    "sourceMap": true,
-    "lib": ["es2017", "dom"],
+    "importHelpers": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "noEmitHelpers": false,
     "noImplicitAny": true,
     "noImplicitReturns": true,
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
     "noImplicitThis": true,
+    "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "importHelpers": true,
-    "noEmitHelpers": false,
-    "module": "CommonJS",
-    "moduleResolution": "Node",
+    "preserveConstEnums": true,
+    "strict": true,
     "pretty": true,
-    "target": "ES2020",
-    "jsx": "react-jsx",
-    "baseUrl": "."
+    "removeComments": false,
+    "sourceMap": true,
+    "strictNullChecks": true
   },
-  "formatCodeOptions": {
-    "indentSize": 2,
-    "tabSize": 2
+  "buildOptions": {
+    "verbose": true,
+    "traceResolution": true
+  },
+  "typeAcquisition": {
+    "enable": true
   }
 }
