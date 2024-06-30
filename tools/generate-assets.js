@@ -1,6 +1,6 @@
 /* tslint:disable */
 
-const compileParcel = require('./parcel-build-v2')
+const compileParcel = require('./parcel-build')
 
 module.exports = async () => {
   try {
