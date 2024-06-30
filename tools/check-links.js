@@ -2,7 +2,7 @@
  * This script checks all links in the README.md file to ensure they are valid.
  */
 
-const fs = require('fs-extra');
+const fs = require('fs-extra')
 const path = require('path')
 const fetch = require('node-fetch-commonjs')
 

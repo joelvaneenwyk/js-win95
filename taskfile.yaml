@@ -21,13 +21,28 @@ vars:
 
   DOTENV_VAULT: npx --yes dotenv-vault@latest
 
+env:
+  NODE_OPTIONS: '--trace-deprecation --trace-warnings --max-old-space-size=2048'
+  ELECTRON_ENABLE_LOGGING: true
+  ELECTRON_RUN_AS_NODE: true
+
 tasks:
   default:
     cmds:
+      - cmd: rm -f "{{.TASKFILE_DIR}}/yarn.lock"
+      - cmd: rm -f "{{.TASKFILE_DIR}}/.yarnrc.yml"
+      - cmd: rm -f "{{.TASKFILE_DIR}}/package-lock.json"
       - task: build
 
   build:
     deps: [install]
+    cmds:
+      - npm run build
+
+  build-debug:
+    deps: [install]
+    env:
+      DEBUG: 'electron-windows-installer*,electron-forge*'
     cmds:
       - npm run build
 

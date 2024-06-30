@@ -9,7 +9,7 @@ on:
     branches: [main, dev, develop, master]
 
 env:
-  NODE_VERSION: 20.x
+  NODE_VERSION: 22.x
 
   # 'nektos/act' sets this to true so we know when we are running through
   # that instead of GitHub Actions.

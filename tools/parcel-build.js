@@ -1,9 +1,8 @@
 // @ts-check
 
-const path = require('path')
-const fs = require('fs-extra')
-
 async function copyLib() {
+  const path = require('path')
+  const fs = require('fs-extra')
   const target = path.join(__dirname, '../dist/static')
   const lib = path.join(__dirname, '../src/renderer/lib')
   const index = path.join(target, 'index.html')
@@ -30,12 +29,15 @@ async function copyLib() {
 }
 
 /**
+ * Run Parcel to compile and generate assets which are then passed to Electron Forge and processed further.
  *
- * @param {import('@parcel/types').InitialParcelOptions} options
+ * @param {boolean} watch
  */
-async function _compileParcel(options = {}) {
+async function _compileParcel(watch = false) {
+  const path = require('path')
   const rootDir = path.resolve(path.join(__dirname, '../'))
   const entryFiles = [path.join(rootDir, 'static', 'index.html')]
+
   const distDir = path.join(rootDir, 'dist')
   const publicDir = path.join(rootDir)
 
@@ -44,18 +46,21 @@ async function _compileParcel(options = {}) {
     config: '@parcel/config-default',
     defaultConfig: '@parcel/config-default',
     entries: entryFiles,
-    logLevel: 'info',
+    logLevel: 'verbose',
     mode: 'development',
     defaultTargetOptions: {
       shouldOptimize: false,
       sourceMaps: true,
       distDir: distDir,
       publicUrl: publicDir,
-      outputFormat: 'global',
+      outputFormat: 'esmodule',
       isLibrary: false,
-      shouldScopeHoist: true
-    },
-    ...options
+      shouldScopeHoist: false,
+      engines: {
+        browsers: ['> 0.25%, not dead'],
+        electron: '31.1.0'
+      }
+    }
   })
 
   // Run the bundler, this returns the main bundle
@@ -63,48 +68,31 @@ async function _compileParcel(options = {}) {
   try {
     await copyLib()
   } finally {
-    return await bundler.run()
+    if (watch) {
+      return bundler.watch((err, buildEvent) => {
+        if (err) {
+          console.error(
+            `[windows95] Parcel build event '${buildEvent}' failed to complete. ${err}`
+          )
+        } else {
+          console.info(`[windows95] Parcel build event '${buildEvent}' completed.`)
+        }
+      })
+    }
+    return bundler.run()
   }
-
-  //if (fs.existsSync(distDir)) {
-  //  fs.rmSync(distDir, { recursive: true });
-  //}
-  //const Parcel = require('@parcel/core').default
-  //const distDir = path.join(__dirname, '/../dist/')
-  //let bundler = new Parcel({
-  //  entries: path.join(__dirname, '../static/index.html'),
-  //  defaultConfig: require.resolve('@parcel/config-default'),
-  //  defaultTargetOptions: {
-  //    outputFormat: 'esmodule',
-  //    distDir: distDir,
-  //    engines: {
-  //      browsers: ['> 0.25%, not dead'],
-  //      electron: '31.1.0'
-  //    },
-  //    sourceMaps: true,
-  //    shouldOptimize: false,
-  //    shouldScopeHoist: false,
-  //    publicUrl: path.join(__dirname, '/../')
-  //  },
-  //  logLevel: 'verbose',
-  //  mode: 'development'
-  //})
-  //try {
-  //  await copyLib()
-  //} finally {
-  //  return await bundler.run()
-  //}
 }
 
 /**
  *
- * @param {import('@parcel/types').InitialParcelOptions} options
+ * @param {boolean} watch
+ * @returns
  */
-module.exports = async (options = {}) => {
+module.exports = async (watch = false) => {
   let result
 
   try {
-    result = await _compileParcel(options)
+    result = await _compileParcel(watch)
     console.info(`[windows95] Compile step for Parcel completed.`)
   } catch (reason) {
     const issue = `[windows95] Error caught running Parcel. ${reason}`

@@ -1,15 +1,15 @@
 // @ts-check
 
-const globals = require('globals');
-const tsPlugin = require('@typescript-eslint/eslint-plugin');
+const globals = require('globals')
+const tsPlugin = require('@typescript-eslint/eslint-plugin')
 
 // @ts-ignore
-const tsEslint = require('typescript-eslint');
+const tsEslint = require('typescript-eslint')
 
-const eslintPluginPrettier = require('eslint-plugin-prettier');
+const eslintPluginPrettier = require('eslint-plugin-prettier')
 
 // @ts-ignore
-const react = require('eslint-plugin-react/configs/recommended');
+const react = require('eslint-plugin-react/configs/recommended')
 
 /**
  * @type {import('eslint').Linter.FlatConfig[]}
@@ -73,4 +73,4 @@ module.exports = [
       '@typescript-eslint/require-await': 'off'
     }
   }
-];
+]
