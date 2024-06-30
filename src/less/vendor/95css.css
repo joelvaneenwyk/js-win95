@@ -246,7 +246,8 @@ select {
 [type=reset],
 [type=submit],
 button {
-  -webkit-appearance: button
+  -webkit-appearance: button;
+  appearance: auto;
 }
 
 [type=button]:not(:disabled),
@@ -274,7 +275,8 @@ input[type=date],
 input[type=datetime-local],
 input[type=month],
 input[type=time] {
-  -webkit-appearance: listbox
+  -webkit-appearance: listbox;
+  appearance: auto;
 }
 
 textarea {
@@ -312,7 +314,8 @@ progress {
 
 [type=search] {
   outline-offset: -2px;
-  -webkit-appearance: none
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 [type=search]::-webkit-search-decoration {
@@ -4594,7 +4597,8 @@ select {
   background-repeat: no-repeat;
   background-position: 100%;
   background-size: 26px;
-  -webkit-appearance: none
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 fieldset {
