@@ -10,14 +10,25 @@ on:
 
 env:
   NODE_VERSION: 20.x
-  NPM: npm
-  LOCKFILE: package-lock.json
+
+  # 'nektos/act' sets this to true so we know when we are running through
+  # that instead of GitHub Actions.
+  ACT: false
 
 jobs:
   lint:
     name: 'Lint 🔍'
     runs-on: ubuntu-latest
+    outputs:
+      cache-folder: ${{ steps.node-cache-dir-path.outputs.cache-folder }}
     steps:
+      # Install 'sudo' if running in 'nektos/act' due to an issue where environment
+      # does not match, see https://github.com/nektos/act/issues/107.
+      - name: Install 'nektos/act' dependencies
+        if: ${{ env.ACT }}
+        run: |
+          apt-get update && apt-get install sudo -y
+
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -28,36 +39,25 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Setup Corepack
-        shell: bash
-        run: |
-          set -eax -o pipefail
-          _sudo="$(command -v sudo 2>/dev/null || true)"
-          if _npm="$(command -v npm 2>/dev/null)"; then
-            ${_sudo:-} "${_npm}" install -g npm@latest
-            ${_sudo:-} "${_npm}" install -g corepack@latest || true
-            ${_sudo:-} corepack enable
-            ${_sudo:-} corepack install
-          fi
-
       - name: Get cache directory path
         id: node-cache-dir-path
         shell: bash
         run: |
-          _cache_path="$(npm config get cache)"
-          echo "cache-folder="${_cache_path:-}"" >> "$GITHUB_OUTPUT"
+          _cache_path="$(npm config get cache 2>/dev/null || true)"
+          echo "cache-folder=${_cache_path:-}" >> "$GITHUB_OUTPUT"
 
       - uses: actions/cache@v4
         id: node-cache
         with:
-          path: ${{ steps.node-cache-dir-path.outputs.cache-folder }}
-          key: node-${{ runner.os }}-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
+          key: "node-${{ env.NODE_VERSION }}-${{ hashFiles('package-lock.json', 'package.json') }}-${{ runner.os }}"
+          path: '${{ steps.node-cache-dir-path.outputs.cache-folder }}'
 
       - name: Install packages
-        run: ${{ env.NPM }} install
+        if: steps.node-cache.outputs.cache-hit != 'true'
+        run: npm install
 
       - name: Lint
-        run: ${{ env.NPM }} run lint
+        run: npm run lint
 
   build:
     name: 'Build // ${{ matrix.os }} // ${{ matrix.arch }}'
@@ -92,19 +92,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-
-      - name: Setup Corepack
-        shell: bash
-        run: |
-          set -eax -o pipefail
-          _sudo="$(command -v sudo 2>/dev/null || true)"
-          if _npm="$(command -v npm 2>/dev/null)"; then
-            ${_sudo:-} "${_npm}" install -g npm@latest
-            ${_sudo:-} "${_npm}" install -g corepack@latest
-            ${_sudo:-} corepack enable
-            ${_sudo:-} corepack install
-          fi
-
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get cache directory path
         id: node-cache-dir-path
@@ -117,13 +105,14 @@ jobs:
         id: node-cache
         with:
           path: ${{ steps.node-cache-dir-path.outputs.cache-folder }}
-          key: node-${{ runner.os }}-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
+          key: node-${{ runner.os }}-${{ hashFiles('package-lock.json', 'package.json') }}${{ env.NODE_VERSION }}
 
       - name: Install packages
-        run: ${{ env.NPM }} install
+        if: steps.node-cache.outputs.cache-hit != 'true'
+        run: npm install
 
       - name: Forge Package
-        run: ${{ env.NPM }} run package -- --arch=${{ matrix.arch }}
+        run: npm run package -- --arch=${{ matrix.arch }}
 
       #- name: Set MacOS signing certs
       #  if: matrix.os == 'macOS'
@@ -155,7 +144,7 @@ jobs:
           DISK_URL: ${{ secrets.DISK_URL }}
 
       #- name: Forge Make
-      #  run: ${{ env.NPM }} run make -- --arch=${{ matrix.arch }}
+      #  run: npm run make -- --arch=${{ matrix.arch }}
       #  continue-on-error: true
       #  env:
       #    APPLE_ID: ${{ secrets.APPLE_ID || '' }}
