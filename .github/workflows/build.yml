@@ -25,7 +25,7 @@ jobs:
       # Install 'sudo' if running in 'nektos/act' due to an issue where environment
       # does not match, see https://github.com/nektos/act/issues/107.
       - name: Install 'nektos/act' dependencies
-        if: ${{ env.ACT }}
+        if: ${{ env.ACT == true }}
         run: |
           apt-get update && apt-get install sudo -y
 
@@ -35,26 +35,15 @@ jobs:
           submodules: recursive
 
       - name: Setup Node.js
+        id: node-cache
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-
-      - name: Get cache directory path
-        id: node-cache-dir-path
-        shell: bash
-        run: |
-          _cache_path="$(npm config get cache 2>/dev/null || true)"
-          echo "cache-folder=${_cache_path:-}" >> "$GITHUB_OUTPUT"
-
-      - uses: actions/cache@v4
-        id: node-cache
-        with:
-          key: "node-${{ env.NODE_VERSION }}-${{ hashFiles('package-lock.json', 'package.json') }}-${{ runner.os }}"
-          path: '${{ steps.node-cache-dir-path.outputs.cache-folder }}'
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
 
       - name: Install packages
-        if: steps.node-cache.outputs.cache-hit != 'true'
-        run: npm install
+        run: npm ci
 
       - name: Lint
         run: npm run lint
@@ -88,28 +77,21 @@ jobs:
           fetch-depth: 0
           submodules: recursive
 
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
       - name: Setup Node.js
+        id: node-cache
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Get cache directory path
-        id: node-cache-dir-path
-        shell: bash
-        run: |
-          _cache_path="$(npm config get cache)"
-          echo "cache-folder="${_cache_path:-}"" >> "$GITHUB_OUTPUT"
-
-      - uses: actions/cache@v4
-        id: node-cache
-        with:
-          path: ${{ steps.node-cache-dir-path.outputs.cache-folder }}
-          key: node-${{ runner.os }}-${{ hashFiles('package-lock.json', 'package.json') }}${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
 
       - name: Install packages
-        if: steps.node-cache.outputs.cache-hit != 'true'
-        run: npm install
+        run: npm ci
 
       - name: Forge Package
         run: npm run package -- --arch=${{ matrix.arch }}
