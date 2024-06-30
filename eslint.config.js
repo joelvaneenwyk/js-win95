@@ -1,12 +1,15 @@
 // @ts-check
 
-const globals = require('globals')
-const tsPlugin = require('@typescript-eslint/eslint-plugin')
-const tsEslint = require('typescript-eslint')
+const globals = require('globals');
+const tsPlugin = require('@typescript-eslint/eslint-plugin');
 
-const eslintPluginPrettier = require('eslint-plugin-prettier')
 // @ts-ignore
-const react = require('eslint-plugin-react/configs/recommended')
+const tsEslint = require('typescript-eslint');
+
+const eslintPluginPrettier = require('eslint-plugin-prettier');
+
+// @ts-ignore
+const react = require('eslint-plugin-react/configs/recommended');
 
 /**
  * @type {import('eslint').Linter.FlatConfig[]}
@@ -42,7 +45,7 @@ module.exports = [
         },
         ecmaVersion: 2022,
         project: true,
-        tsconfigRootDir: __dirname // or import.meta.dirname for ESM
+        tsconfigRootDir: __dirname
       },
       globals: { ...globals.browser, ...globals.es2024 }
     },
@@ -70,4 +73,4 @@ module.exports = [
       '@typescript-eslint/require-await': 'off'
     }
   }
-]
+];

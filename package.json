@@ -2,40 +2,25 @@
   "name": "windows95",
   "productName": "windows95",
   "version": "3.1.2",
-  "main": "dist/index.html",
+  "main": "dist/src/main/main.js",
   "source": "static/index.html",
   "author": "Felix Rieseberg, felix@felixrieseberg.com",
   "homepage": "https://windows.com",
+  "bugs": "https://github.com/joelvaneenwyk/windows95",
   "description": "Windows 95 running in an Electron application.",
   "license": "MIT",
-  "workspaces": [],
-  "type": "commonjs",
+  "packageManager": "npm@10.8.1",
+  "private": true,
   "engines": {
-    "node": "^20 || ^22"
+    "node": "^22"
   },
-  "bugs": "https://github.com/joelvaneenwyk/windows95",
   "targets": {
     "main": false
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/joelvaneenwyk/windows95"
-  },
   "licenses": [
     {
-      "license": "MIT"
-    }
-  ],
-  "maintainers": [
-    {
-      "name": "Felix Rieseberg",
-      "email": "felix@felixrieseberg.com"
-    }
-  ],
-  "contributors": [
-    {
-      "name": "Joel Van Eenwyk",
-      "email": "joel.vaneenwyk@gmail.com"
+      "type": "MIT",
+      "url": "https://github.com/joelvaneenwyk/windows95"
     }
   ],
   "keywords": [
@@ -48,26 +33,45 @@
     "retrocomputers",
     "retro-gaming"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joelvaneenwyk/windows95"
+  },
+  "directories": {
+    "output": "./dist"
+  },
+  "maintainers": [
+    {
+      "name": "Felix Rieseberg",
+      "email": "felix@felixrieseberg.com"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Joel Van Eenwyk",
+      "email": "joel.vaneenwyk@gmail.com"
+    }
+  ],
   "scripts": {
     "bundler": "parcel build --dist-dir ./dist --log-level info --public-url ./ --no-optimize --no-content-hash static/index.html",
     "env:pull": "npx --yes dotenv-vault@1.24.0 pull --yes",
     "env:push": "npx --yes dotenv-vault@1.24.0 push --yes",
     "start": "rimraf ./dist && electron-forge start",
+    "prePackage": "npm run tsc",
     "build": "npm run package",
-    "build:debug": "DEBUG=electron-windows-installer*,electron-forge* npm run build",
-    "package": "electron-forge package --verbose",
+    "package": "npm run tsc && electron-forge package --verbose",
     "make": "electron-forge make --verbose",
     "test": "npm run build && electron-forge test",
     "publish": "electron-forge publish --verbose",
     "lint": "npm run lint:cli && npm run format:check && npm run check-links",
-    "lint:cli": "eslint .",
+    "lint:cli": "eslint ./src ./tools",
     "lint:fix": "npm run lint:cli -- --fix",
     "format": "npm run lint:fix && npm run format:write",
     "format:cli": "prettier . --trailing-comma none --no-semi",
     "format:write": "npm run format:cli -- --write --log-level debug",
     "format:check": "npm run format:cli -- --check",
-    "tsc": "tsc -p tsconfig.json --noEmit",
-    "check-links": "node tools/check-links.js"
+    "tsc": "tsc --project ./tsconfig.json",
+    "check-links": "node ./tools/check-links.js"
   },
   "browserslist": "> 0.25%, not dead",
   "config": {
@@ -106,10 +110,11 @@
     "@types/eslint": "^8.56.10",
     "@types/eslint__js": "^8.42.3",
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^20.14",
+    "@types/node": "^20.14.9",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.14.1",
+    "@typescript-eslint/parser": "^7.14.1",
     "@typescript-eslint/types": "^7.14.1",
     "@typescript-eslint/utils": "^7.14.1",
     "assert": "^2.1.0",
@@ -125,10 +130,12 @@
     "globals": "^15.7.0",
     "less": "^4.2.0",
     "node-fetch": "^3.3.2",
+    "node-fetch-commonjs": "^3.3.2",
     "parcel": "^2.12.0",
     "path-browserify": "^1.0.1",
     "prettier": "^3.3.2",
     "process": "^0.11.10",
+    "punycode": "^2.3.1",
     "rimraf": "^5.0.7",
     "stream-browserify": "^3.0.0",
     "tslib": "^2.6.3",

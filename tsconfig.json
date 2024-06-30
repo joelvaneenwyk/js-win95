@@ -1,29 +1,36 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
     "experimentalDecorators": true,
-    "removeComments": false,
-    "preserveConstEnums": true,
-    "sourceMap": true,
+    "importHelpers": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
     "lib": ["es2017", "dom"],
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
+    "noEmitHelpers": false,
     "noImplicitAny": true,
     "noImplicitReturns": true,
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
     "noImplicitThis": true,
+    "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "importHelpers": true,
-    "noEmitHelpers": false,
-    "isolatedModules": true,
-    "jsxImportSource": "react",
-    "module": "CommonJS",
-    "moduleResolution": "Node",
+    "outDir": "./dist",
+    "preserveConstEnums": true,
     "pretty": true,
-    "target": "ES2020",
-    "jsx": "react-jsx",
-    "baseUrl": "."
+    "removeComments": false,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "target": "ES2020"
+  },
+  "buildOptions": {
+    "verbose": true,
+    "traceResolution": true
+  },
+  "typeAcquisition": {
+    "enable": true
   },
   "formatCodeOptions": {
     "indentSize": 2,
