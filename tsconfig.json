@@ -16,6 +16,8 @@
     "noUnusedParameters": true,
     "importHelpers": true,
     "noEmitHelpers": false,
+    "isolatedModules": true,
+    "jsxImportSource": "preact",
     "module": "CommonJS",
     "moduleResolution": "Node",
     "pretty": true,

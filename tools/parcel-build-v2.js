@@ -102,7 +102,7 @@ async function _compileParcel2() {
     entries: path.join(__dirname, '../static/index.html'),
     defaultConfig: require.resolve('@parcel/config-default'),
     defaultTargetOptions: {
-      outputFormat: 'commonjs',
+      outputFormat: 'esmodule',
       distDir: distDir,
       engines: {
         browsers: ['> 0.25%, not dead'],
