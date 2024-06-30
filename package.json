@@ -79,7 +79,6 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "electron": "31.1.0",
     "@electron-forge/cli": "^7.4.0",
     "@electron-forge/maker-deb": "^7.4.0",
     "@electron-forge/maker-flatpak": "^7.4.0",
@@ -98,11 +97,12 @@
     "@types/node-abi": "^3",
     "@types/parcel-bundler": "^1",
     "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3",
+    "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.14.1",
     "@typescript-eslint/types": "^7.14.1",
     "@typescript-eslint/utils": "^7.14.1",
     "dotenv": "^16.4.5",
+    "electron": "31.1.0",
     "electron-squirrel-startup": "^1.0.1",
     "eslint": "^9.6.0",
     "eslint-config-prettier": "^9.1.0",
