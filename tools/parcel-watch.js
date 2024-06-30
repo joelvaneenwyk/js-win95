@@ -1,11 +1,10 @@
-const { compileParcel } = require('./parcel-build')
+const compileParcel = require('./parcel-build-v2')
 
-async function watchParcel() {
-  return compileParcel({ watch: true })
+module.exports = async () => {
+  try {
+    await Promise.all([compileParcel({ watch: true })])
+    console.info('Assets generated successfully!')
+  } catch (error) {
+    console.error(`Error generating assets: ${error}`)
+  }
 }
-
-module.exports = {
-  watchParcel
-}
-
-if (require.main === module) watchParcel()
