@@ -1,13 +1,24 @@
-# Default ignored files
+#
+# Default ignored JetBrains files
+#
+
 shelf/
 workspace.xml
 
 # Editor-based HTTP Client requests
 httpRequests/
 
+inspectionProfiles/
+
 # Additional excluded files
 deployment.xml
 GitLink.xml
 vcs.xml
 modules.xml
-inspectionProfiles/
+developer-tools.xml
+templateLanguages.xml
+prettier.xml
+misc.xml
+markdown.xml
+jsLibraryMappings.xml
+cssdialects.xml
