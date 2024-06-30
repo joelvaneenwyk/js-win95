@@ -27,16 +27,19 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: ${{ env.NODE_VERSION || '20.x' }}
 
       - name: Setup Corepack
         shell: bash
-        env:
-          SUDO: ${{ runner.os == 'Windows' && '' || 'sudo' }}
         run: |
-          ${SUDO} npm install -g corepack@latest
-          ${SUDO} corepack enable
-          ${SUDO} corepack install
+          set -eax -o pipefail
+          _sudo="$(command -v sudo 2>/dev/null || true)"
+          if _npm="$(command -v npm 2>/dev/null)"; then
+            ${_sudo:-} "${_npm}" install -g npm@latest
+            ${_sudo:-} "${_npm}" install -g corepack@latest
+            ${_sudo:-} corepack enable
+            ${_sudo:-} corepack install
+          fi
 
       - name: Get cache directory path
         id: node-cache-dir-path
@@ -92,12 +95,15 @@ jobs:
 
       - name: Setup Corepack
         shell: bash
-        env:
-          SUDO: ${{ runner.os == 'Linux' && 'sudo' }}
         run: |
-          ${SUDO:-} npm install -g corepack@latest
-          ${SUDO:-} corepack enable
-          ${SUDO:-} corepack install
+          set -eax -o pipefail
+          _sudo="$(command -v sudo 2>/dev/null || true)"
+          if _npm="$(command -v npm 2>/dev/null)"; then
+            ${_sudo:-} "${_npm}" install -g npm@latest
+            ${_sudo:-} "${_npm}" install -g corepack@latest
+            ${_sudo:-} corepack enable
+            ${_sudo:-} corepack install
+          fi
 
       - name: Get cache directory path
         id: node-cache-dir-path
