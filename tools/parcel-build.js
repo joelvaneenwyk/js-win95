@@ -35,13 +35,11 @@ async function copyLib() {
  */
 async function _compileParcel(options = {}) {
   const rootDir = path.resolve(path.join(__dirname, '../'))
-  const entryFiles = [
-    path.join(rootDir, 'static', 'index.html')
-  ]
-  const distDir = path.join(rootDir, 'dist');
+  const entryFiles = [path.join(rootDir, 'static', 'index.html')]
+  const distDir = path.join(rootDir, 'dist')
   const publicDir = path.join(rootDir)
 
-  const Parcel = require('@parcel/core').default;
+  const Parcel = require('@parcel/core').default
   const bundler = new Parcel({
     config: '@parcel/config-default',
     defaultConfig: '@parcel/config-default',
@@ -63,9 +61,9 @@ async function _compileParcel(options = {}) {
   // Run the bundler, this returns the main bundle
   // Use the events if you're using watch mode as this promise will only trigger once and not for every rebuild
   try {
-    await copyLib();
+    await copyLib()
   } finally {
-    return await bundler.run();
+    return await bundler.run()
   }
 
   //if (fs.existsSync(distDir)) {
@@ -103,16 +101,16 @@ async function _compileParcel(options = {}) {
  * @param {import('@parcel/types').InitialParcelOptions} options
  */
 module.exports = async (options = {}) => {
-  let result;
+  let result
 
   try {
-    result = await _compileParcel(options);
-    console.info(`[windows95] Compile step for Parcel completed.`);
+    result = await _compileParcel(options)
+    console.info(`[windows95] Compile step for Parcel completed.`)
   } catch (reason) {
-    const issue = `[windows95] Error caught running Parcel. ${reason}`;
-    console.error(issue);
-    throw Error(issue);
+    const issue = `[windows95] Error caught running Parcel. ${reason}`
+    console.error(issue)
+    throw Error(issue)
   }
 
-  return result;
-};
+  return result
+}

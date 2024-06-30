@@ -20,7 +20,7 @@ module.exports = [
   // https://github.com/jsx-eslint/eslint-plugin-react#configuration
   {
     files: ['src/**/*.{ts,tsx}'],
-    ignores: ['dist/**/*.js'],
+    ignores: ['dist/emulator.*.js', 'dist/index.*.js'],
     settings: {
       react: {
         version: 'detect'

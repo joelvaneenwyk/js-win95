@@ -16,9 +16,7 @@
       "type": "msedge",
       "name": "Launch Microsoft Edge",
       "request": "launch",
-      "runtimeArgs": [
-        "--remote-debugging-port=9222"
-      ],
+      "runtimeArgs": ["--remote-debugging-port=9222"],
       "url": " http://localhost:1313",
       "presentation": {
         "hidden": true
@@ -28,10 +26,7 @@
       "type": "msedge",
       "name": "Launch Microsoft Edge in headless mode",
       "request": "launch",
-      "runtimeArgs": [
-        "--headless",
-        "--remote-debugging-port=9222"
-      ],
+      "runtimeArgs": ["--headless", "--remote-debugging-port=9222"],
       "url": " http://localhost:1313",
       "presentation": {
         "hidden": true
@@ -57,10 +52,7 @@
     },
     {
       "name": "Launch Edge and attach DevTools",
-      "configurations": [
-        "Launch Microsoft Edge",
-        "Open Edge DevTools"
-      ]
+      "configurations": ["Launch Microsoft Edge", "Open Edge DevTools"]
     }
   ]
 }

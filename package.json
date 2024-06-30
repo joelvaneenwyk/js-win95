@@ -6,33 +6,26 @@
   "source": "static/index.html",
   "author": "Felix Rieseberg, felix@felixrieseberg.com",
   "homepage": "https://windows.com",
+  "description": "Windows 95 running in an Electron application.",
+  "license": "MIT",
+  "workspaces": [],
+  "type": "commonjs",
+  "engines": {
+    "node": "^20 || ^22"
+  },
   "bugs": "https://github.com/joelvaneenwyk/windows95",
   "targets": {
     "main": false
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/joelvaneenwyk/windows95"
-    }
-  ],
-  "keywords": [
-    "windows",
-    "windows95",
-    "electron",
-    "emulator",
-    "retro",
-    "retrocomputing",
-    "retrocomputers",
-    "retro-gaming"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/joelvaneenwyk/windows95"
   },
-  "directories": {
-    "output": "./dist"
-  },
+  "licenses": [
+    {
+      "license": "MIT"
+    }
+  ],
   "maintainers": [
     {
       "name": "Felix Rieseberg",
@@ -45,13 +38,16 @@
       "email": "joel.vaneenwyk@gmail.com"
     }
   ],
-  "description": "Windows 95 running in an Electron application.",
-  "license": "MIT",
-  "workspaces": [],
-  "type": "commonjs",
-  "engines": {
-    "node": "^20 || ^22"
-  },
+  "keywords": [
+    "windows",
+    "windows95",
+    "electron",
+    "emulator",
+    "retro",
+    "retrocomputing",
+    "retrocomputers",
+    "retro-gaming"
+  ],
   "scripts": {
     "bundler": "parcel build --dist-dir ./dist --log-level info --public-url ./ --no-optimize --no-content-hash static/index.html",
     "env:pull": "npx --yes dotenv-vault@1.24.0 pull --yes",
@@ -126,8 +122,9 @@
     "eslint-plugin-react": "^7.34.3",
     "eslint-plugin-react-hooks": "^4.6.2",
     "events": "^3.3.0",
-    "globals": "^15.6.0",
+    "globals": "^15.7.0",
     "less": "^4.2.0",
+    "node-fetch": "^3.3.2",
     "parcel": "^2.12.0",
     "path-browserify": "^1.0.1",
     "prettier": "^3.3.2",
