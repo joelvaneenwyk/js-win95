@@ -34,7 +34,7 @@ jobs:
           cache-dependency-path: '**/package-lock.json'
 
       - name: Install packages
-        run: npm ci
+        run: npm install
 
       - name: Lint
         run: npm run lint
@@ -82,7 +82,7 @@ jobs:
           cache-dependency-path: '**/package-lock.json'
 
       - name: Install packages
-        run: npm ci
+        run: npm install
 
       - name: Set MacOS signing certs
         if: matrix.os == 'macOS'
@@ -124,8 +124,8 @@ jobs:
           APPLE_ID: ${{ secrets.APPLE_ID || '' }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD || '' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #    WINDOWS_CODESIGN_FILE: ${{ steps.write_file.outputs.filePath || '' }}
-      #    WINDOWS_CODESIGN_PASSWORD: ${{ secrets.WINDOWS_CODESIGN_PASSWORD || '' }}
+          WINDOWS_CODESIGN_FILE: ${{ steps.write_file.outputs.filePath || '' }}
+          WINDOWS_CODESIGN_PASSWORD: ${{ secrets.WINDOWS_CODESIGN_PASSWORD || '' }}
 
       - name: Release
         uses: softprops/action-gh-release@v2
