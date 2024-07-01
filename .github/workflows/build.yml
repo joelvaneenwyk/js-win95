@@ -32,6 +32,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
+          check-latest: true
 
       - name: Install packages
         run: npm install
@@ -78,6 +79,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
+          check-latest: true
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
 

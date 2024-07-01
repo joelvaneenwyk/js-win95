@@ -19,7 +19,7 @@ export function getOrCreateWindow(): BrowserWindow {
   })
 
   // mainWindow.webContents.toggleDevTools();
-  mainWindow.loadFile('./dist/static/index.html')
+  mainWindow.loadFile('./dist/index.html');
 
   mainWindow.webContents.on('will-navigate', (event, url) =>
     handleNavigation(event, url)

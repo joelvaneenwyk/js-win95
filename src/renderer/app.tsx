@@ -15,7 +15,7 @@ export class App {
    * render process.
    */
   public async setup(): Promise<void | Element> {
-    const { Emulator } = await import('./emulator')
+    const { Emulator } = await import('./emulator.js');
 
     const className = `${process.platform}`
     const app = (

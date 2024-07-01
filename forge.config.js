@@ -86,12 +86,6 @@ module.exports = {
           certificatePassword: process.env['WINDOWS_CODESIGN_PASSWORD']
         }
       }
-    },
-    {
-      name: '@electron-forge/maker-deb'
-    },
-    {
-      name: '@electron-forge/maker-rpm'
     }
   ],
   plugins: [

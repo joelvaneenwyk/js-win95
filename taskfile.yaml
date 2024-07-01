@@ -30,8 +30,11 @@ tasks:
   default:
     cmds:
       - cmd: rm -f "{{.TASKFILE_DIR}}/yarn.lock"
+        platforms: [linux]
       - cmd: rm -f "{{.TASKFILE_DIR}}/.yarnrc.yml"
+        platforms: [linux]
       - cmd: rm -f "{{.TASKFILE_DIR}}/package-lock.json"
+        platforms: [linux]
       - task: build
 
   build:
