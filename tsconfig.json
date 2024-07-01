@@ -26,7 +26,7 @@
     "pretty": true,
     "removeComments": false,
     "sourceMap": true,
-    "strictNullChecks": true,
+    "strictNullChecks": true
   },
   "buildOptions": {
     "verbose": true,
@@ -34,9 +34,5 @@
   },
   "typeAcquisition": {
     "enable": true
-  },
-  "formatCodeOptions": {
-    "indentSize": 2,
-    "tabSize": 2
   }
 }
