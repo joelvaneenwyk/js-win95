@@ -25,7 +25,7 @@ initializeEnvironment()
 module.exports = {
   hooks: {
     prePackage: async () => {
-      execSync('tsc');
+      execSync('npm run prePackage');
     },
     generateAssets: async () => {
       return await parcelBuild();

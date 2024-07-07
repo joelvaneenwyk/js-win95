@@ -1,10 +1,10 @@
 // @ts-check
 
+const path = require('path');
 var log = require('loglevel');
+const fs = require('fs-extra');
 
 async function copyLib() {
-  const path = require('path');
-  const fs = require('fs-extra');
   const target = path.join(__dirname, '../dist/static');
   const sourceStatic = path.join(__dirname, '../static');
   const lib = path.join(__dirname, '../src/renderer/lib');
@@ -53,7 +53,7 @@ async function buildAssets(watch = false) {
   /** @type {import('@parcel/types').BuildSuccessEvent | undefined} */
   let result;
 
-  /** @type {import('@parcel/types').Bundler<Parcel>} */
+  /** @type {import('@parcel/core').Parcel | undefined} */
   let bundler;
 
   // Run the bundler, this returns the main bundle
@@ -61,7 +61,6 @@ async function buildAssets(watch = false) {
   try {
     const updatedFiles = await copyLib();
     if (updatedFiles !== null) {
-      const path = require('path');
       const rootDir = path.resolve(path.join(__dirname, '../'));
 
       const distDir = path.join(rootDir, 'dist');
@@ -72,10 +71,10 @@ async function buildAssets(watch = false) {
         path.join(rootDir, 'static', 'index.html')
       ];
       const Parcel = require('@parcel/core').default;
-      const bundler = new Parcel({
-        config: '@parcel/config-default',
+      bundler = new Parcel({
         defaultConfig: '@parcel/config-default',
         entries: entryFiles,
+        shouldDisableCache: true,
         logLevel: 'verbose',
         mode: 'development',
         defaultTargetOptions: {

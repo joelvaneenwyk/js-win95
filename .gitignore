@@ -15,8 +15,12 @@ dist/
 .parcel-cache/
 .cache/
 
+package-lock.json
+# yarn.lock
+
+parcel-trace-*.json
+
 .yarn/
-yarn.lock
 .pnp.cjs
 .pnp.loader.mjs
 
