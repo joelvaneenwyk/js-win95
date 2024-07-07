@@ -90,9 +90,6 @@
     "typescript:compile": "tsc",
     "check-links": "node ./tools/check-links.js"
   },
-  "overrides": {
-    "eslint": "^9.6.0"
-  },
   "dependencies": {
     "electron": "31.1.0",
     "electron-squirrel-startup": "^1.0.1",
