@@ -36,3 +36,5 @@ yarn.lock
 /pnpm-lock.yaml
 
 *.tgz
+
+.node-version

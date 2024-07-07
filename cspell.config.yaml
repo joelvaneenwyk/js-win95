@@ -1,0 +1,11 @@
+version: '0.2'
+ignorePaths: []
+dictionaryDefinitions:
+  - name: js-win95
+    path: ./.github/config/js-win95.dict
+    addWords: true
+dictionaries:
+  - js-win95
+words: []
+ignoreWords: []
+import: []

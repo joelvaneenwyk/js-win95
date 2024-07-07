@@ -13,7 +13,7 @@ insert_final_newline = true
 max_line_length = 85
 quote_type = single
 
-[*.md]
+[*.{md,markdown}]
 indent_size = 2
 
 [*.{yml,yaml}]

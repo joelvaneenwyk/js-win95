@@ -63,7 +63,8 @@
   ],
   "typescript.reportStyleChecksAsWarnings": false,
   "typescript.surveys.enabled": false,
-  "typescript.tsc.autoDetect": "build",
+  "typescript.tsc.autoDetect": "watch",
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.tsserver.web.projectWideIntellisense.enabled": true
+  "typescript.tsserver.web.projectWideIntellisense.enabled": true,
+  "livePreview.defaultPreviewPath": "/dist/index.html"
 }

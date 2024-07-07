@@ -4,6 +4,7 @@ const package_json = require('./package.json')
 
 require('dotenv').config()
 
+/* @joelvaneenwyk #todo
 if (process.env['WINDOWS_CODESIGN_FILE']) {
   const certPath = path.join(__dirname, 'win-certificate.pfx')
   const certExists = fs.existsSync(certPath)
@@ -12,6 +13,7 @@ if (process.env['WINDOWS_CODESIGN_FILE']) {
     process.env['WINDOWS_CODESIGN_FILE'] = certPath
   }
 }
+*/
 
 module.exports = {
   hooks: {
@@ -84,12 +86,6 @@ module.exports = {
           certificatePassword: process.env['WINDOWS_CODESIGN_PASSWORD']
         }
       }
-    },
-    {
-      name: '@electron-forge/maker-deb'
-    },
-    {
-      name: '@electron-forge/maker-rpm'
     }
   ],
   plugins: [

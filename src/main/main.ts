@@ -1,6 +1,6 @@
 import { app } from 'electron'
 
-import { isDevMode } from '../utils/devmode'
+// import { isDevMode } from '../utils/devmode'
 import { setupAboutPanel } from './about-panel'
 import { shouldQuit } from './squirrel'
 import { setupUpdates } from './update'
@@ -13,7 +13,9 @@ import { setupIpcListeners } from './ipc'
  * the method that takes care of booting the application.
  */
 export async function onReady() {
+  /* @joelvaneenwyk #todo
   if (!isDevMode()) process.env.NODE_ENV = 'production'
+  */
 
   setupIpcListeners()
   getOrCreateWindow()
