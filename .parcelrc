@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/parcel-bundler/parcel/v2/packages/utils/parcelforvscode/schemas/parcelrc.schema.json",
   "extends": "@parcel/config-default",
   "transformers": {
     "*.{ts,tsx}": ["@parcel/transformer-typescript-tsc"]

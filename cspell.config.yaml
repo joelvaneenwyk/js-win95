@@ -1,5 +1,9 @@
 version: '0.2'
-ignorePaths: []
+ignorePaths:
+  - dist/
+  - src/renderer/lib/libv86.js
+  - '*.wasm'
+  - '*.lock'
 dictionaryDefinitions:
   - name: js-win95
     path: ./.github/config/js-win95.dict

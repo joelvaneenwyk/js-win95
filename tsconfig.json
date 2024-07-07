@@ -1,5 +1,19 @@
 {
+  "compileOnSave": true,
+  "watchOptions": {
+    "watchDirectory": "usefsevents",
+    "excludeDirectories": ["node_modules", "dist", "out"]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "tools/*.js"
+  ],
+  "exclude": ["src/renderer/lib/*.js", "dist/", "node_modules/", "out/"],
   "compilerOptions": {
+    "typeRoots": ["node_modules/@types"],
     "baseUrl": ".",
     "jsx": "react-jsx",
     "jsxImportSource": "react",
@@ -9,6 +23,7 @@
     "lib": ["ES2022", "DOM"],
     "outDir": "./dist",
     "allowJs": true,
+    "declaration": false,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "importHelpers": true,
