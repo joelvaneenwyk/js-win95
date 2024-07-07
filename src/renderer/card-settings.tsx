@@ -1,4 +1,4 @@
-import * as fs from 'fs-extra'
+import { existsSync, remove } from 'fs-extra'
 import * as React from 'react'
 
 import { getStatePath } from './utils/get-state-path'
@@ -212,8 +212,8 @@ export class CardSettings extends React.Component<
   private async onResetState() {
     const statePath = await getStatePath()
 
-    if (fs.existsSync(statePath)) {
-      await fs.remove(statePath)
+    if (existsSync(statePath)) {
+      await remove(statePath)
     }
 
     this.setState({ isStateReset: true })

@@ -21,6 +21,9 @@ vars:
 
   DOTENV_VAULT: npx --yes dotenv-vault@latest
 
+  NPM: yarn
+  NPM_RUN: '{{ if eq .NPM "yarn" }}{{.NPM}}{{ else }}{{.NPM}} run{{ end }}'
+
 env:
   NODE_OPTIONS: '--trace-deprecation --trace-warnings --max-old-space-size=2048'
   ELECTRON_ENABLE_LOGGING: true
@@ -29,35 +32,43 @@ env:
 tasks:
   default:
     cmds:
-      - cmd: rm -f "{{.TASKFILE_DIR}}/yarn.lock"
+      - task: build
+
+  clean:
+    cmds:
+      - cmd: rm -rf "{{.TASKFILE_DIR}}/.yarn/"
         platforms: [linux]
-      - cmd: rm -f "{{.TASKFILE_DIR}}/.yarnrc.yml"
+      - cmd: rm -f "{{.TASKFILE_DIR}}/yarn.lock"
         platforms: [linux]
       - cmd: rm -f "{{.TASKFILE_DIR}}/package-lock.json"
         platforms: [linux]
+
+  rebuild:
+    deps: [clean]
+    cmds:
       - task: build
 
   build:
     deps: [install]
     cmds:
-      - npm run build
+      - cmd: '{{.NPM_RUN}} build'
 
   build-debug:
     deps: [install]
     env:
       DEBUG: 'electron-windows-installer*,electron-forge*'
     cmds:
-      - npm run build
+      - '{{.NPM_RUN}} build'
 
   lint:
     deps: [install]
     cmds:
-      - npm run lint
+      - '{{.NPM_RUN}} lint'
 
   start:
     deps: [install]
     cmds:
-      - npm start
+      - '{{.NPM_RUN}} start'
 
   download-disk-sh:
     deps: [dotenv-pull]
@@ -81,7 +92,7 @@ tasks:
 
   install:
     cmds:
-      - cmd: npm install
+      - cmd: '{{.NPM}} install'
       - task: install-dependencies-ubuntu
 
   install-dependencies-ubuntu:

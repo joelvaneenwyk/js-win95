@@ -4,20 +4,20 @@ const { config } = require('dotenv')
 const { resolve } = require('path')
 const { execSync } = require('child_process')
 const parcelBuild = require('./tools/parcel-build')
+const { existsSync } = require('fs')
 
-function initializeEnvironment() {
+function initializeEnvironment(updateCodesignFile = false) {
   config()
 
-  /* @joelvaneenwyk #todo
-  if (process.env['WINDOWS_CODESIGN_FILE']) {
+  // @joelvaneenwyk #todo
+  if (updateCodesignFile && process.env['WINDOWS_CODESIGN_FILE']) {
     const certPath = path.join(__dirname, 'win-certificate.pfx')
-    const certExists = fs.existsSync(certPath)
+    const certExists = existsSync(certPath)
 
     if (certExists) {
       process.env['WINDOWS_CODESIGN_FILE'] = certPath
     }
   }
-  */
 }
 
 initializeEnvironment()

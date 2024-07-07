@@ -1,5 +1,5 @@
 import { ipcRenderer, shell } from 'electron'
-import * as fs from 'fs-extra'
+import { readFileSync, existsSync, outputFile } from 'fs-extra'
 import * as path from 'path'
 import * as React from 'react'
 
@@ -389,7 +389,7 @@ export class Emulator extends React.Component<object, EmulatorState> {
 
     try {
       const newState = await emulator.save_state()
-      await fs.outputFile(statePath, Buffer.from(newState))
+      await outputFile(statePath, Buffer.from(newState))
     } catch (error) {
       console.warn(`saveState: Could not save state`, error)
     }
@@ -426,12 +426,12 @@ export class Emulator extends React.Component<object, EmulatorState> {
    */
   private async getState(): Promise<ArrayBuffer | null> {
     const expectedStatePath = await getStatePath()
-    const statePath = fs.existsSync(expectedStatePath)
+    const statePath = existsSync(expectedStatePath)
       ? expectedStatePath
       : CONSTANTS.DEFAULT_STATE_PATH
 
-    if (fs.existsSync(statePath)) {
-      return fs.readFileSync(statePath).buffer
+    if (existsSync(statePath)) {
+      return readFileSync(statePath).buffer
     }
 
     return null

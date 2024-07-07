@@ -41,4 +41,5 @@ parcel-trace-*.json
 
 *.tgz
 
-.node-version
+# @joelvaneenwyk - For local development, it is helpful to ensure all contributors are using the same version of Node.js
+# .node-version

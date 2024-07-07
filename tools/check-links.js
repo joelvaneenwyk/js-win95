@@ -2,7 +2,7 @@
  * This script checks all links in the README.md file to ensure they are valid.
  */
 
-const fs = require('fs-extra')
+const { readFile } = require('fs-extra')
 const path = require('path')
 const fetch = require('node-fetch-commonjs')
 
@@ -11,7 +11,7 @@ const LINK_RGX =
 
 async function main() {
   const readmePath = path.join(__dirname, '../README.md')
-  const readme = await fs.readFile(readmePath, 'utf-8')
+  const readme = await readFile(readmePath, 'utf-8')
   const links = readme.match(LINK_RGX)
   let failed = false
 

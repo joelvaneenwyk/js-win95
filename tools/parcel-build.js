@@ -1,8 +1,8 @@
 // @ts-check
 
 const path = require('path')
-var log = require('loglevel')
-const fs = require('fs-extra')
+const logger = require('loglevel')
+const fsExtra = require('fs-extra')
 
 async function copyLib() {
   const target = path.join(__dirname, '../dist/static')
@@ -11,16 +11,16 @@ async function copyLib() {
 
   // Copy in lib
   let copiedPaths = [target]
-  await fs.copy(lib, target)
+  await fsExtra.copy(lib, target)
 
-  // Patch so that fs.read is used
+  // Patch so that 'read' is used
   const libv86path = path.join(target, 'libv86.js')
-  const libv86 = fs.readFileSync(libv86path, 'utf-8')
+  const libv86 = fsExtra.readFileSync(libv86path, 'utf-8')
   const patchedLibv86 = libv86.replace(
     'v86util.load_file="undefined"===typeof XMLHttpRequest',
     'v86util.load_file="undefined"!==typeof XMLHttpRequest'
   )
-  fs.writeFileSync(libv86path, patchedLibv86)
+  fsExtra.writeFileSync(libv86path, patchedLibv86)
   copiedPaths.push(libv86path)
 
   // Overwrite
@@ -28,15 +28,15 @@ async function copyLib() {
   const index = path.join(target, 'index.html')
   let indexContents = ''
   try {
-    indexContents = fs.readFileSync(index, 'utf-8')
+    indexContents = fsExtra.readFileSync(index, 'utf-8')
   } catch (error) {
-    indexContents = fs.readFileSync(indexSource, 'utf-8')
+    indexContents = fsExtra.readFileSync(indexSource, 'utf-8')
   }
   const replacedContents = indexContents.replace(
     '<!-- libv86 -->',
     '<script src="libv86.js"></script>'
   )
-  fs.writeFileSync(index, replacedContents)
+  fsExtra.writeFileSync(index, replacedContents)
   copiedPaths.push(index)
 
   return copiedPaths
@@ -88,24 +88,24 @@ async function buildAssets(watch = false) {
       result = await bundler.run()
 
       if (result !== undefined && watch) {
-        log.warn('[windows95] Initiating Parcel watch mode.')
+        logger.warn('[windows95] Initiating Parcel watch mode.')
         await bundler?.watch((err, buildEvent) => {
           if (err) {
-            log.error(
+            logger.error(
               `[windows95] Parcel build event '${buildEvent}' failed to complete. ${err}`
             )
           } else {
-            log.info(`[windows95] Parcel build event '${buildEvent}' completed.`)
+            logger.info(`[windows95] Parcel build event '${buildEvent}' completed.`)
           }
         })
       }
     } else {
-      log.error('[windows95] Error copying lib files.')
+      logger.error('[windows95] Error copying lib files.')
     }
   } catch (reason) {
-    log.trace()
+    logger.trace()
     const issue = `[windows95] Error caught running Parcel. ${reason}`
-    log.error(issue)
+    logger.error(issue)
   }
 
   return result
@@ -113,7 +113,7 @@ async function buildAssets(watch = false) {
 
 // @ts-ignore
 if (!module.parent) {
-  log.info('Running asset generation directly since we were not imported.')
+  logger.info('Running asset generation directly since we were not imported.')
   buildAssets()
 }
 
