@@ -8,6 +8,7 @@ dotenv
 DOTENV
 esmodule
 felixrieseberg
+flaskenv
 flatpak
 libasound
 libatk
@@ -24,10 +25,12 @@ libx
 libxss
 libxtst
 linuxbrew
+loglevel
 macintoshjs
 mynet
 nektos
 netdev
+parcelrc
 pcspk
 pipefail
 qcow

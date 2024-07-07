@@ -2,8 +2,8 @@ const { FusesPlugin } = require('@electron-forge/plugin-fuses')
 const { FuseV1Options, FuseVersion } = require('@electron/fuses')
 const { config } = require('dotenv')
 const { resolve } = require('path')
-const { execSync } = require('child_process');
-const parcelBuild = require('./tools/parcel-build');
+const { execSync } = require('child_process')
+const parcelBuild = require('./tools/parcel-build')
 
 function initializeEnvironment() {
   config()
@@ -25,10 +25,10 @@ initializeEnvironment()
 module.exports = {
   hooks: {
     prePackage: async () => {
-      execSync('npm run prePackage');
+      execSync('npm run prePackage')
     },
     generateAssets: async () => {
-      return await parcelBuild();
+      return await parcelBuild()
     }
   },
   packagerConfig: {
