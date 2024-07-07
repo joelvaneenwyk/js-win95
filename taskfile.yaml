@@ -49,7 +49,7 @@ tasks:
       - task: build
 
   build:
-    deps: [install]
+    deps: [install, download-disk]
     cmds:
       - cmd: '{{.NPM_RUN}} build'
 
@@ -69,6 +69,13 @@ tasks:
     deps: [install]
     cmds:
       - '{{.NPM_RUN}} start'
+
+  download-disk:
+    cmds:
+      - task: download-disk-sh
+        platforms: [linux, darwin]
+      - task: download-disk-pwsh
+        platforms: [windows]
 
   download-disk-sh:
     deps: [dotenv-pull]

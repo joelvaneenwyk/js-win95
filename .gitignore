@@ -30,7 +30,8 @@ parcel-trace-*.json
 *.pfx
 *.DotSettings.user
 
-.env*
+.env
+.env.*
 .flaskenv*
 !.env.project
 !.env.vault
