@@ -8,3 +8,9 @@ dist
 !.github/images
 *.code-workspace
 *.pfx
+
+# @joelvaneenwyk - Additional ignores
+.idea/
+.parcel-cache/
+.task/
+.env*
