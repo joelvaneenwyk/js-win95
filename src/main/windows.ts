@@ -1,4 +1,4 @@
-import { BrowserWindow, shell } from 'electron'
+import { BrowserWindow, shell, HandlerDetails } from 'electron'
 
 let mainWindow: BrowserWindow | null = null
 
@@ -25,10 +25,16 @@ export function getOrCreateWindow(): BrowserWindow {
     handleNavigation(event, url)
   )
 
-  // @joelvaneenwyk #review - Fix
-  //mainWindow.webContents.on("new-window", (event, url) =>
-  //  handleNavigation(event, url)
-  //);
+  // @joelvaneenwyk #review   Migrated from 'new-window' event to setWindowOpenHandler as the former
+  //                          is deprecated. Need to review this more to ensure it is the right fix.
+  //                #related  https://github.com/cypress-io/cypress/issues/24775
+  mainWindow.webContents.setWindowOpenHandler((details: HandlerDetails) => {
+    if (details.url.startsWith('http')) {
+      shell.openExternal(details.url)
+      return { action: 'deny' }
+    }
+    return { action: 'allow' }
+  })
 
   mainWindow.on('closed', () => {
     mainWindow = null
