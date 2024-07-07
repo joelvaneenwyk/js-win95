@@ -1,11 +1,11 @@
-version: '0.2'
+version: "0.2"
 ignorePaths: []
 dictionaryDefinitions:
-  - name: windows-terms
-    path: ./.vscode/cspell-windows-terms.dict
+  - name: windows95-js
+    path: ./.github/config/windows95-js.dict
     addWords: true
 dictionaries:
-  - windows-terms
+  - windows95-js
 words: []
 ignoreWords: []
 import: []
