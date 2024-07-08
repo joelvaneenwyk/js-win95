@@ -20,7 +20,7 @@ export async function onReady() {
   setupIpcListeners()
   getOrCreateWindow()
   setupAboutPanel()
-  // @joelvaneenwyk #review - Validate correctness
+  // @joelvaneenwyk #review - Validate correctness. Should have await or no?
   await setupMenu()
   setupUpdates()
 }

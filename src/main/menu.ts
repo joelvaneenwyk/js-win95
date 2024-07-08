@@ -257,5 +257,5 @@ async function createMenu({ isRunning } = { isRunning: false }) {
     } as any)
   }
 
-  Menu.setApplicationMenu(Menu.buildFromTemplate(template as any))
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 }
